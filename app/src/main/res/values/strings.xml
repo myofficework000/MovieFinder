@@ -3,4 +3,21 @@
     <string name="title">Title</string>
     <string name="date">2022-12-14</string>
     <string name="popular">Popular</string>
+
+    //movie details screen
+    <string name="Button_description">Button description</string>
+    <string name="Title">Avatar: The Way of Water</string>
+    <string name="title_down">Avatar: The Way of Water (2022)</string>
+    <string name="description1">R 2022-12-14(EN) 3h 12m</string>
+    <string name="Genre">Science Fiction, Adventure, Action</string>
+    <string name="user_Score">User Score </string>
+    <string name="Play_trailer">Play Trailer</string>
+    <string name="Overview">Overview</string>
+    <string name="description">Avatar, American science fiction film series and media franchise created by director James Cameron The films follow a U.S. Marine named Jake Sully(Sam Worthington) who becomes part of a program in which human colonizers explore and exploit an alien world called Pandora.</string>
+    <string name="Cast_bill">Top Billed Cast</string>
+
+
+
+
+
 </resources>

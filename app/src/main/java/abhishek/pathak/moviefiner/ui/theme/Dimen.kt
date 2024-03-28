@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.sp
 val dp_0 = 0.dp
 val dp_1 = 1.dp
 val dp_4 = 4.dp
+val dp_5=5.dp
 val dp_6 = 6.dp
 val dp_8 = 8.dp
 val dp_10 = 10.dp
