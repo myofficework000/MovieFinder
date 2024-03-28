@@ -1,5 +1,7 @@
 package abhishek.pathak.moviefiner.ui.view
 
+import abhishek.pathak.moviefiner.ui.theme.WelcomeScreenBlue
+import abhishek.pathak.moviefiner.ui.theme.White
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -9,12 +11,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import abhishek.pathak.moviefiner.ui.view.components.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.painterResource
+import androidx.navigation.compose.currentBackStackEntryAsState
 
-
-data class Movie(val posterUrl: String, val title: String, val releaseDate: String)
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
@@ -68,18 +71,49 @@ fun WelcomeScreen(navController: NavController) {
 }
 
 @Composable
+fun BottomNavigationBar(navController: NavController) {
+
+    val navigationItems = listOf(
+        HomeBottomNavigation.Home,
+        HomeBottomNavigation.Favorite,
+        HomeBottomNavigation.Profile,
+    )
+
+    BottomNavigation(
+        backgroundColor = Color.WelcomeScreenBlue,
+        contentColor = Color.WelcomeScreenWhite
+    ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+        navigationItems.forEach {
+            BottomNavigationItem(
+                selected = it.route == currentRoute,
+                onClick = {},
+                icon = {
+                    Icon(
+                        painter = painterResource(id = it.icon),
+                        contentDescription = it.title
+                    )
+                })
+
+        }
+
+    }
+}
+
+@Composable
 fun WelcomeBanner() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.WelcomeScreenBlue)
+            .background(WelcomeScreenBlue)
             .padding(16.dp)
     ) {
         Column {
             Text(
                 text = "Welcome",
                 style = MaterialTheme.typography.h5,
-                color = Color.White,
+                color = (White)
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Text(
@@ -115,7 +149,7 @@ fun MovieSection(
         MovieSectionHeader(title, onViewAllClick)
         LazyRow(modifier = Modifier.padding(top = 8.dp)) {
             items(movies) { movie ->
-                MovieCard(movie = movie)
+                MovieCard(movie = movie, Modifier.padding(4.dp))
             }
         }
     }

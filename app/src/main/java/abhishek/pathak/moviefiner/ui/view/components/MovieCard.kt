@@ -7,9 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import abhishek.pathak.moviefiner.ui.view.Movie
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import com.android.volley.toolbox.ImageRequest
 
 @Composable
 fun MovieCard(movie: Movie, modifier: Modifier = Modifier) {
