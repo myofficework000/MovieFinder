@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.ui.view.components
+package abhishek.pathak.moviefiner.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar() {
     TextField(
