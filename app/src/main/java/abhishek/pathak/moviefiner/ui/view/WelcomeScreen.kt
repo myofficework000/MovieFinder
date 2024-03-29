@@ -1,183 +1,150 @@
 package abhishek.pathak.moviefiner.ui.view
 
-import abhishek.pathak.moviefiner.ui.theme.WelcomeScreenBlue
-import abhishek.pathak.moviefiner.ui.theme.White
+import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.ui.theme.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import abhishek.pathak.moviefiner.ui.view.components.*
-import androidx.compose.foundation.background
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.compose.currentBackStackEntryAsState
-
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.material3.BottomNavigation
+import androidx.compose.material3.BottomNavigationItem
 
 @Composable
-fun WelcomeScreen(navController: NavController) {
-    val popularMovies = remember { /* TODO: Fetch popular movies */ listOf<Movie>() }
-    val nowPlayingMovies = remember { /* TODO: Fetch now playing movies*/ listOf<Movie>() }
-    val topRatedMovies = remember { /* TODO: Fetch top rated movies*/ listOf<Movie>() }
-    val upcomingMovies = remember { /* TODO: Fetch upcoming movies */ listOf<Movie>() }
-
-    Scaffold(bottomBar = {
-        BottomNavigationBar(navController = navController)
-    }) { paddingValues ->
-        LazyColumn(
+fun WelcomeScreen() {
+    Scaffold(
+        bottomBar = { BottomNavigationBar() }
+    ) { padding ->
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = paddingValues.calculateBottomPadding())
+                .background(White)
+                .padding(padding)
         ) {
-            item {
-                WelcomeBanner()
-                Spacer(modifier = Modifier.height(20.dp))
-            }
-            item {
-                MovieSection(
-                    title = "Popular",
-                    movies = popularMovies,
-                    onViewAllClick = { /* TODO: Navigate to View All Popular Movies */ }
-                )
-            }
-            item {
-                MovieSection(
-                    title = "Now Playing",
-                    movies = nowPlayingMovies,
-                    onViewAllClick = { /* TODO: Navigate to View All Now Playing Movies */ }
-                )
-            }
-            item {
-                MovieSection(
-                    title = "Top Rated",
-                    movies = topRatedMovies,
-                    onViewAllClick = { /* TODO: Navigate to View All Top Rated Movies */ }
-                )
-            }
-            item {
-                MovieSection(
-                    title = "Upcoming",
-                    movies = upcomingMovies,
-                    onViewAllClick = { /* TODO: Navigate to View All Upcoming Movies */ }
-                )
-            }
+            GreetingSection()
+            SearchBar()
+            MovieSection(sectionTitle = "Popular", movies = listOf(/* list of popular movies */))
+            MovieSection(sectionTitle = "Now Playing", movies = listOf(/* list of now playing movies */))
+            MovieSection(sectionTitle = "Upcoming", movies = listOf(/* list of popular movies */))
+            MovieSection(sectionTitle = "Top Rated", movies = listOf(/* list of popular movies */))
         }
     }
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
-
-    val navigationItems = listOf(
-        HomeBottomNavigation.Home,
-        HomeBottomNavigation.Favorite,
-        HomeBottomNavigation.Profile,
+fun GreetingSection() {
+    Text(
+        text = "Welcome",
+        style = MaterialTheme.typography.headlineMedium,
+        modifier = Modifier.padding(16.dp)
     )
 
-    BottomNavigation(
-        backgroundColor = Color.WelcomeScreenBlue,
-        contentColor = Color.WelcomeScreenWhite
-    ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-        navigationItems.forEach {
-            BottomNavigationItem(
-                selected = it.route == currentRoute,
-                onClick = {},
-                icon = {
-                    Icon(
-                        painter = painterResource(id = it.icon),
-                        contentDescription = it.title
-                    )
-                })
-
-        }
-
-    }
-}
-
-@Composable
-fun WelcomeBanner() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(WelcomeScreenBlue)
-            .padding(16.dp)
-    ) {
-        Column {
-            Text(
-                text = "Welcome",
-                style = MaterialTheme.typography.h5,
-                color = (White)
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            Text(
-                text = "Millions of movies, TV shows and people to discover. Explore now.",
-                style = MaterialTheme.typography.body1,
-                color = Color.White
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            SearchBar()
-        }
-    }
 }
 
 @Composable
 fun SearchBar() {
-    TextField(
+    OutlinedTextField(
         value = "",
-        onValueChange = { },
+        onValueChange = {},
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White, RoundedCornerShape(8.dp)),
-        placeholder = { Text(text = "Search for a movie...") }
+            .padding(horizontal = 16.dp),
+        placeholder = { Text("Search for a movie...") },
+        singleLine = true,
+        keyboardActions = KeyboardActions(
+            onSearch = { /* handle search */ }
+        ),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        trailingIcon = {
+            IconButton(onClick = { /* icon click */ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_content_paste_search_24),
+                    contentDescription = "Search"
+                )
+            }
+        }
     )
 }
 
 @Composable
-fun MovieSection(
-    title: String,
-    movies: List<Movie>,
-    onViewAllClick: () -> Unit
-) {
-    Column(modifier = Modifier.padding(vertical = 16.dp)) {
-        MovieSectionHeader(title, onViewAllClick)
-        LazyRow(modifier = Modifier.padding(top = 8.dp)) {
+fun MovieSection(sectionTitle: String, movies: List<Movie>) {
+    Column {
+        Text(
+            text = sectionTitle,
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
+        )
+        LazyRow {
             items(movies) { movie ->
-                MovieCard(movie = movie, Modifier.padding(4.dp))
+                MovieCard(movie = movie)
             }
         }
-    }
-}
 
-@Composable
-fun MovieSectionHeader(
-    title: String,
-    onViewAllClick: () -> Unit
-) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.h6
-        )
-        TextButton(onClick = onViewAllClick) {
-            Text(text = "View All")
-        }
     }
 }
 
 @Composable
 fun MovieCard(movie: Movie) {
-    // TODO: Movie Card
+    Card(
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+    ) {
+        Column {
+            Image(
+                painter = painterResource(id = movie.imageResourceId),
+                contentDescription = movie.title,
+                modifier = Modifier.height(150.dp).fillMaxWidth()
+            )
+            Text(
+                text = movie.title,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(8.dp)
+            )
+
+        }
+    }
+}
+
+@Composable
+fun BottomNavigationBar() {
+    BottomNavigation(
+        backgroundColor = Color.White,
+        contentColor = Color.Black
+    ) {
+        BottomNavigationItem(
+            icon = { Icon(painterResource(id = R.drawable.baseline_add_home_24), contentDescription = "Home") },
+            label = { Text("Home") },
+            selected = true,
+            onClick = { /* handle Home click */ }
+        )
+        BottomNavigationItem(
+            icon = { Icon(painterResource(id = R.drawable.baseline_favorite_24), contentDescription = "Favorites") },
+            label = { Text("Favorites") },
+            selected = false,
+            onClick = { /* handle Favorites click */ }
+        )
+        BottomNavigationItem(
+            icon = { Icon(painterResource(id = R.drawable.baseline_emoji_people_24), contentDescription = "Profile") },
+            label = { Text("Profile") },
+            selected = false,
+            onClick = { /* handle Profile click */ }
+        )
+    }
+}
+
+data class Movie(val imageResourceId: Int, val title: String)
+
+@Preview(showBackground = true)
+@Composable
+fun WelcomeScreenPreview() {
+    WelcomeScreen()
 }
