@@ -1,5 +1,6 @@
-package abhishek.pathak.moviefiner
+package abhishek.pathak.moviefiner.view.screens
 
+import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_4
@@ -38,9 +39,14 @@ fun PopularScreenUIPrev() {
 
 @Composable
 fun PopularScreenUI() {
-    Column(modifier = Modifier.fillMaxSize().background(White)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(White)) {
         Row(
-            modifier = Modifier.fillMaxWidth().wrapContentHeight().background(color = White)
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(color = White)
         ) {
             IconButton(
                 onClick = { },
@@ -102,4 +108,10 @@ fun ItemView() {
                 }
             }
         }
+}
+
+@Preview
+@Composable
+private fun ItemViewPrev() {
+    ItemView()
 }

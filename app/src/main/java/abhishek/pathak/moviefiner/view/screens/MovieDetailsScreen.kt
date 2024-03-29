@@ -1,5 +1,6 @@
-package abhishek.pathak.moviefiner
+package abhishek.pathak.moviefiner.view.screens
 
+import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_100
 import abhishek.pathak.moviefiner.ui.theme.dp_120
@@ -37,9 +38,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MovieDetailsScreen() {
+fun MovieDetailsScreen(navController: NavController, movieID: String?) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -199,6 +202,6 @@ fun ItemTopBilledCast(topBilledCastList: TopBilledCastList){
 }
 @Preview
 @Composable
-fun prev(){
-    MovieDetailsScreen()
+fun Prev(){
+    MovieDetailsScreen(rememberNavController(), "12345678")
 }
