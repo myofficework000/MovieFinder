@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.BottomNavigation
 import androidx.compose.material3.BottomNavigationItem
-import abhishek.pathak.moviefiner.R
 
 @Composable
 fun WelcomeScreen() {
