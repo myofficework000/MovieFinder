@@ -14,13 +14,13 @@ class MoviesViewModel(private val repository: Repository) : ViewModel() {
     val movies: StateFlow<List<Movie>> = _movies.asStateFlow()
 
     init {
-        fetchMovies()
+        //fetchMovies()
     }
-
+/*
     private fun fetchMovies() {
         viewModelScope.launch {
 
             _movies.value = repository.getMovies(1).results
         }
-    }
+    }*/
 }
