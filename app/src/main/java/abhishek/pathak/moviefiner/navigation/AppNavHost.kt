@@ -1,6 +1,7 @@
 package abhishek.pathak.moviefiner.navigation
 
 //import abhishek.pathak.moviefiner.ui.view.WelcomeScreen
+import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.view.screens.MovieDetailsScreen
 import abhishek.pathak.moviefiner.view.screens.PopularScreenUI
 import abhishek.pathak.moviefiner.view.screens.TrendingScreenUI
@@ -21,7 +22,7 @@ fun AppNavHost(
 
 //        composable(NavigationItem.Welcome_Screen.route){ WelcomeScreen(navHostController)}
 
-        composable(NavigationItem.Popular_Screen.route){ PopularScreenUI()}
+        composable(NavigationItem.Popular_Screen.route){ PopularScreenUI(PopularViewModel(),navHostController)}
 
         composable(NavigationItem.Trending_Screen.route){ /*TrendingScreenUI(hiltViewModel(),*/ navHostController }
 
