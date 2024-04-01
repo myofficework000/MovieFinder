@@ -13,3 +13,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val WelcomeScreenBlue = Color(0xFFA4D7FF)
 val WelcomeScreenWhite = Color(0xFFF8FCFF)
+
+val LightGray20 = Color(0xFFA2A2A2)

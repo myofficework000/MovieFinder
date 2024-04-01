@@ -1,6 +1,6 @@
 package abhishek.pathak.moviefiner.ui.view
 
-import abhishek.pathak.moviefiner.PopularViewModel
+import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.popular.popularUIWelcome
 import abhishek.pathak.moviefiner.ui.theme.*

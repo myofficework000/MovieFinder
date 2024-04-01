@@ -1,16 +1,11 @@
 package abhishek.pathak.moviefiner.popular
 
 import abhishek.pathak.moviefiner.ItemView
-import abhishek.pathak.moviefiner.PopularViewModel
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.ui.theme.White
-import abhishek.pathak.moviefiner.ui.theme.dp_100
-import abhishek.pathak.moviefiner.ui.theme.dp_120
-import abhishek.pathak.moviefiner.ui.theme.dp_140
 import abhishek.pathak.moviefiner.ui.theme.dp_172
 import abhishek.pathak.moviefiner.ui.theme.dp_32
 import abhishek.pathak.moviefiner.ui.theme.dp_60
-import abhishek.pathak.moviefiner.ui.theme.dp_80
 import abhishek.pathak.moviefiner.ui.theme.sp_16
 import abhishek.pathak.moviefiner.ui.theme.sp_20
 import android.util.Log
@@ -41,7 +36,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun popularUIWelcome(popularViewModel: PopularViewModel= viewModel(),navController: NavController) {
+fun popularUIWelcome(popularViewModel: PopularViewModel = viewModel(), navController: NavController) {
     popularViewModel.fetchUpcomingMovieData()
     val movieImage = popularViewModel.popularLiveData.observeAsState()
 

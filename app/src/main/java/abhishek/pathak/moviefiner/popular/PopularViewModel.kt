@@ -1,9 +1,5 @@
-package abhishek.pathak.moviefiner
+package abhishek.pathak.moviefiner.popular
 
-import abhishek.pathak.moviefiner.popular.ApiServicePopular
-import abhishek.pathak.moviefiner.popular.ConstantsPopular
-import abhishek.pathak.moviefiner.popular.PopularResponse
-import abhishek.pathak.moviefiner.popular.RetrofitBuilder
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,7 +21,7 @@ class PopularViewModel : ViewModel() {
                     call: Call<PopularResponse>,
                     response: Response<PopularResponse>
                 ) {
-                    Log.e("data",response.body().toString())
+                    Log.e("data", response.body().toString())
                     _popularLiveData.value = response.body()
                 }
 

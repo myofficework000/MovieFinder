@@ -1,6 +1,8 @@
-package abhishek.pathak.moviefiner
+package abhishek.pathak.moviefiner.view.screens
 
+import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.popular.ConstantsPopular
+import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_172
@@ -10,12 +12,10 @@ import abhishek.pathak.moviefiner.ui.theme.sp_12
 import abhishek.pathak.moviefiner.ui.theme.sp_14
 import abhishek.pathak.moviefiner.ui.theme.sp_20
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,8 +38,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
@@ -51,12 +49,14 @@ fun PopularScreenUIPrev() {
 }
 
 @Composable
-fun PopularScreenUI(popularViewModel: PopularViewModel= viewModel()) {
+fun PopularScreenUI(popularViewModel: PopularViewModel = viewModel()) {
     popularViewModel.fetchUpcomingMovieData()
     val movieImage = popularViewModel.popularLiveData.observeAsState()
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(White)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -83,43 +83,44 @@ fun PopularScreenUI(popularViewModel: PopularViewModel= viewModel()) {
                 .wrapContentWidth()
                 .background(White)
         ) {
-                val list = movieImage.value?.results
-                if(list!=null){
-                    items(list.size) { item ->
-                        Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
-                            ItemView(
-                                "${ConstantsPopular.IMAGE_ENDPOINT + list[item].poster_path}.toString()",
-                                list[item].title.toString(),
-                                list[item].release_date.toString()
-                            )
-                        }
+            val list = movieImage.value?.results
+            if (list != null) {
+                items(list.size) { item ->
+                    Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
+                        ItemView(
+                            "${ConstantsPopular.IMAGE_ENDPOINT + list[item].poster_path}.toString()",
+                            list[item].title.toString(),
+                            list[item].release_date.toString()
+                        )
                     }
                 }
-                else{
-                    Log.e("error",list.toString())
-                }
+            } else {
+                Log.e("error", list.toString())
+            }
         }
     }
 }
 
-
-
-
 @Composable
 @OptIn(ExperimentalGlideComposeApi::class)
-fun ItemView(image: String, title: String, date: String ) {
+fun ItemView(image: String, title: String, date: String) {
 
     Card(
         modifier = Modifier.padding(dp_10),
         elevation = CardDefaults.cardElevation(dp_4)
-    ){
+    ) {
         Box(
             Modifier
                 .fillMaxWidth()
-        ){
+        ) {
             Column {
-                GlideImage( model = image,contentDescription = null,loading = placeholder(R.drawable.ic_launcher_background))
-                Text(text = title,
+                GlideImage(
+                    model = image,
+                    contentDescription = null,
+                    loading = placeholder(R.drawable.ic_launcher_background)
+                )
+                Text(
+                    text = title,
                     fontSize = sp_14,
                     modifier = Modifier
                         .padding(dp_10)
@@ -127,12 +128,20 @@ fun ItemView(image: String, title: String, date: String ) {
                     maxLines = 1,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = date,
+                Text(
+                    text = date,
                     fontSize = sp_12,
                     modifier = Modifier
                         .padding(start = dp_10, end = dp_10, bottom = dp_10)
-                        .fillMaxWidth())
-                }
+                        .fillMaxWidth()
+                )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun ItemViewPrev() {
+    //ItemView()
 }
