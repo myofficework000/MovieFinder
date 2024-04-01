@@ -4,17 +4,13 @@ import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.model.data.Movie
 import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.ui.theme.LightGray20
-import abhishek.pathak.moviefiner.ui.theme.White
-import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_16
 import abhishek.pathak.moviefiner.ui.theme.dp_20
 import abhishek.pathak.moviefiner.ui.theme.dp_4
-import abhishek.pathak.moviefiner.ui.theme.dp_6
 import abhishek.pathak.moviefiner.ui.theme.dp_8
 import abhishek.pathak.moviefiner.ui.theme.sp_10
 import abhishek.pathak.moviefiner.ui.theme.sp_20
 import abhishek.pathak.moviefiner.ui.theme.sp_30
-import abhishek.pathak.moviefiner.ui.theme.sp_4
 import abhishek.pathak.moviefiner.viewmodel.HiltMovieViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -51,10 +47,10 @@ private fun TrendingUIPrev() {
 }
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun TrendingRowUI(/*movieViewModel: HiltMovieViewModel = hiltViewModel()*/) {
+fun TrendingRowUI(movieViewModel: HiltMovieViewModel = hiltViewModel()) {
 
-//    movieViewModel.getTrendingMovies()
-//    val movies = movieViewModel.trendingMovie.observeAsState()
+    movieViewModel.getTrendingMovies()
+    val responseMovie = movieViewModel.trendingMovie.observeAsState()
 
     ConstraintLayout (
         Modifier
@@ -90,11 +86,11 @@ fun TrendingRowUI(/*movieViewModel: HiltMovieViewModel = hiltViewModel()*/) {
             top.linkTo(title.bottom)
         }) {
 
-//            movies.value?.let { it ->
-//                items(it.movies){
-//                    MovieItemUI(movie = it, rememberNavController())
-//                }
-//            }
+            responseMovie.value?.let { movieList ->
+                items(movieList.movies){
+                    MovieItemUI(movie = it, rememberNavController())
+                }
+            }
 
 //            if(movies.value != null){
 //                items(movies.value!!.movies){
@@ -102,16 +98,16 @@ fun TrendingRowUI(/*movieViewModel: HiltMovieViewModel = hiltViewModel()*/) {
 //                }
 //            }
 
-            items(movieList){
-                    MovieItemUI(it, rememberNavController())
-                }
+//            items(movieList){
+//                    MovieItemUI(it, rememberNavController())
+//                }
 
         }
 
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
 @Composable
 fun MovieItemUI(movie: Movie, navController: NavController) {
 
@@ -133,9 +129,9 @@ fun MovieItemUI(movie: Movie, navController: NavController) {
                 .padding(dp_4, dp_20)
         ){
 
-//        GlideImage(
-//            model = {"https://image.tmdb.org/t/p/original/" + movie.poster_path},//image.tmdb.org/t/p/original/qrGtVFxaD8c7et0jUtaYhyTzzPg.jpg",
-//            contentDescription = null)
+        GlideImage(
+            model = {"https://image.tmdb.org/t/p/original/" + movie.poster_path},//image.tmdb.org/t/p/original/qrGtVFxaD8c7et0jUtaYhyTzzPg.jpg",
+            contentDescription = null)
 
             Image(painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = null, modifier = Modifier.fillMaxWidth())

@@ -1,6 +1,6 @@
 package abhishek.pathak.moviefiner.popular
 
-import abhishek.pathak.moviefiner.PopularScreenUI
+import abhishek.pathak.moviefiner.view.screens.PopularScreenUI
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController

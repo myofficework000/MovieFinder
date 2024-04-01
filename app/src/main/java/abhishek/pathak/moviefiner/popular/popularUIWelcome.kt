@@ -1,6 +1,5 @@
 package abhishek.pathak.moviefiner.popular
 
-import abhishek.pathak.moviefiner.ItemView
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_172
@@ -8,6 +7,7 @@ import abhishek.pathak.moviefiner.ui.theme.dp_32
 import abhishek.pathak.moviefiner.ui.theme.dp_60
 import abhishek.pathak.moviefiner.ui.theme.sp_16
 import abhishek.pathak.moviefiner.ui.theme.sp_20
+import abhishek.pathak.moviefiner.view.screens.ItemView
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
