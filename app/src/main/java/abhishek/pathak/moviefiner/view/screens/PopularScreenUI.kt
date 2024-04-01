@@ -1,13 +1,17 @@
 package abhishek.pathak.moviefiner.view.screens
 
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.popular.ConstantsPopular
+import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_10
+import abhishek.pathak.moviefiner.ui.theme.dp_172
 import abhishek.pathak.moviefiner.ui.theme.dp_4
+import abhishek.pathak.moviefiner.ui.theme.dp_60
 import abhishek.pathak.moviefiner.ui.theme.sp_12
 import abhishek.pathak.moviefiner.ui.theme.sp_14
 import abhishek.pathak.moviefiner.ui.theme.sp_20
-import androidx.compose.foundation.Image
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +19,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Card
@@ -23,6 +29,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.res.painterResource
@@ -30,6 +37,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
 
 @Preview
 @Composable
@@ -38,10 +49,14 @@ fun PopularScreenUIPrev() {
 }
 
 @Composable
-fun PopularScreenUI() {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(White)) {
+fun PopularScreenUI(popularViewModel: PopularViewModel = viewModel()) {
+    popularViewModel.fetchUpcomingMovieData()
+    val movieImage = popularViewModel.popularLiveData.observeAsState()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -65,53 +80,68 @@ fun PopularScreenUI() {
         LazyVerticalGrid(
             GridCells.Fixed(columns),
             modifier = Modifier
-                .fillMaxWidth()
+                .wrapContentWidth()
                 .background(White)
         ) {
-            items(18) {
-                for (i in 0..18) {
-                    ItemView()
+            val list = movieImage.value?.results
+            if (list != null) {
+                items(list.size) { item ->
+                    Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
+                        ItemView(
+                            "${ConstantsPopular.IMAGE_ENDPOINT + list[item].poster_path}.toString()",
+                            list[item].title.toString(),
+                            list[item].release_date.toString()
+                        )
+                    }
                 }
+            } else {
+                Log.e("error", list.toString())
             }
         }
     }
 }
 
-
-
-
 @Composable
-fun ItemView() {
+@OptIn(ExperimentalGlideComposeApi::class)
+fun ItemView(image: String, title: String, date: String) {
 
     Card(
         modifier = Modifier.padding(dp_10),
         elevation = CardDefaults.cardElevation(dp_4)
-    ){
+    ) {
         Box(
             Modifier
                 .fillMaxWidth()
-        ){
+        ) {
             Column {
-                Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = null, modifier = Modifier.fillMaxWidth())
-                Text(text = stringResource(R.string.title),
+                GlideImage(
+                    model = image,
+                    contentDescription = null,
+                    loading = placeholder(R.drawable.ic_launcher_background)
+                )
+                Text(
+                    text = title,
                     fontSize = sp_14,
                     modifier = Modifier
                         .padding(dp_10)
                         .fillMaxWidth(),
+                    maxLines = 1,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = stringResource(R.string.date),
+                Text(
+                    text = date,
                     fontSize = sp_12,
                     modifier = Modifier
                         .padding(start = dp_10, end = dp_10, bottom = dp_10)
-                        .fillMaxWidth())
-                }
+                        .fillMaxWidth()
+                )
             }
         }
+    }
 }
 
 @Preview
 @Composable
 private fun ItemViewPrev() {
-    ItemView()
+    //ItemView()
 }

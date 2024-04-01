@@ -1,5 +1,8 @@
 package abhishek.pathak.moviefiner.view
 
+import abhishek.pathak.moviefiner.popular.AppNavHost
+import abhishek.pathak.moviefiner.ui.theme.MovieFinerTheme
+import abhishek.pathak.moviefiner.view.screens.TrendingRowUI
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,10 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import abhishek.pathak.moviefiner.ui.theme.MovieFinerTheme
-import abhishek.pathak.moviefiner.view.screens.TrendingRowUI
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     TrendingRowUI(/*hiltViewModel()*/)
+                    AppNavHost(navHostController = rememberNavController())
                 }
             }
         }
