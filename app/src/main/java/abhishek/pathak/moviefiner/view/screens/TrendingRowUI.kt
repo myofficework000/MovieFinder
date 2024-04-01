@@ -87,8 +87,10 @@ fun TrendingRowUI(movieViewModel: HiltMovieViewModel = hiltViewModel()) {
         }) {
 
             responseMovie.value?.let { movieList ->
-                items(movieList.movies){
-                    MovieItemUI(movie = it, rememberNavController())
+                movieList.movies?.let { movies ->
+                    items(movies){
+                        MovieItemUI(movie = it, rememberNavController())
+                    }
                 }
             }
 
