@@ -4,6 +4,7 @@ import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.popular.popularUIWelcome
 import abhishek.pathak.moviefiner.ui.theme.*
+import abhishek.pathak.moviefiner.view.screens.TrendingRowUI
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -37,6 +38,7 @@ fun WelcomeScreen(navController: NavController) {
             GreetingSection()
             SearchBar()
             popularUIWelcome(PopularViewModel(), navController)
+            TrendingRowUI()
 //            MovieSection(sectionTitle = "Now Playing", movies = listOf(/* list of now playing movies */))
 //            MovieSection(sectionTitle = "Upcoming", movies = listOf(/* list of popular movies */))
 //            MovieSection(sectionTitle = "Top Rated", movies = listOf(/* list of popular movies */))
