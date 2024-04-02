@@ -1,5 +1,6 @@
 package abhishek.pathak.moviefiner.popular
 
+import abhishek.pathak.moviefiner.ui.view.WelcomeScreen
 import abhishek.pathak.moviefiner.view.screens.PopularScreenUI
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,11 +18,10 @@ fun AppNavHost(
     navController = navHostController,
     startDestination = startDestination){
         composable(NavigationItem.WELCOME.route) {
-            val popularViewModel = PopularViewModel()
-            popularUIWelcome(popularViewModel,navHostController)
+            WelcomeScreen(navHostController)
         }
         composable(NavigationItem.LISTSCREEN.route) {
-            PopularScreenUI(popularViewModel = PopularViewModel())
+            PopularScreenUI(popularViewModel = PopularViewModel(),navHostController)
         }
 }
 }

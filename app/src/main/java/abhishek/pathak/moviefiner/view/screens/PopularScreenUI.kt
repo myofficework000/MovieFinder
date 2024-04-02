@@ -2,11 +2,13 @@ package abhishek.pathak.moviefiner.view.screens
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.popular.ConstantsPopular
+import abhishek.pathak.moviefiner.popular.NavigationItem
 import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_172
 import abhishek.pathak.moviefiner.ui.theme.dp_4
+import abhishek.pathak.moviefiner.ui.theme.dp_50
 import abhishek.pathak.moviefiner.ui.theme.dp_60
 import abhishek.pathak.moviefiner.ui.theme.sp_12
 import abhishek.pathak.moviefiner.ui.theme.sp_14
@@ -38,6 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
@@ -45,11 +49,11 @@ import com.bumptech.glide.integration.compose.placeholder
 @Preview
 @Composable
 fun PopularScreenUIPrev() {
-    PopularScreenUI()
+    PopularScreenUI(PopularViewModel(), rememberNavController())
 }
 
 @Composable
-fun PopularScreenUI(popularViewModel: PopularViewModel = viewModel()) {
+fun PopularScreenUI(popularViewModel: PopularViewModel = viewModel(),navController: NavController) {
     popularViewModel.fetchUpcomingMovieData()
     val movieImage = popularViewModel.popularLiveData.observeAsState()
     Column(
@@ -64,7 +68,7 @@ fun PopularScreenUI(popularViewModel: PopularViewModel = viewModel()) {
                 .background(color = White)
         ) {
             IconButton(
-                onClick = { },
+                onClick = {  navController.navigate(NavigationItem.WELCOME.route)},
                 Modifier.paint(painterResource(id = R.drawable.baseline_arrow_back_24))
             ) { }
 
@@ -86,12 +90,12 @@ fun PopularScreenUI(popularViewModel: PopularViewModel = viewModel()) {
             val list = movieImage.value?.results
             if (list != null) {
                 items(list.size) { item ->
-                    Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
                         ItemView(
                             "${ConstantsPopular.IMAGE_ENDPOINT + list[item].poster_path}.toString()",
                             list[item].title.toString(),
                             list[item].release_date.toString()
-                        )
+                      )
                     }
                 }
             } else {

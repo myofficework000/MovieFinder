@@ -46,7 +46,6 @@ val dp_300 = 300.dp
 val dp_360 = 360.dp
 val dp_400 = 400.dp
 val dp_420 = 420.dp
-
 val sp_4 = 4.sp
 val sp_10=10.sp
 val sp_12 = 12.sp
