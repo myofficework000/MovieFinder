@@ -2,7 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="PopularScreenUIPrev (1)">
+      <entry key="ItemViewPrev">
+        <State />
+      </entry>
+      <entry key="NowPlayingScreenPrev">
+        <State />
+      </entry>
+      <entry key="PopularScreenUIPrev">
         <State />
       </entry>
       <entry key="WelcomeScreenPreview">

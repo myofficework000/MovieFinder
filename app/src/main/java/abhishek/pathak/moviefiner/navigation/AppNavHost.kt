@@ -2,12 +2,9 @@ package abhishek.pathak.moviefiner.navigation
 
 //import abhishek.pathak.moviefiner.ui.view.WelcomeScreen
 import abhishek.pathak.moviefiner.popular.PopularViewModel
-import abhishek.pathak.moviefiner.view.screens.MovieDetailsScreen
+import abhishek.pathak.moviefiner.model.Details.MovieDetailsScreen
 import abhishek.pathak.moviefiner.view.screens.PopularScreenUI
-import abhishek.pathak.moviefiner.view.screens.TrendingScreenUI
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,7 +17,7 @@ fun AppNavHost(
 
     NavHost(navController = navHostController, startDestination = startDestination) {
 
-//        composable(NavigationItem.Welcome_Screen.route){ WelcomeScreen(navHostController)}
+        //composable(NavigationItem.Welcome_Screen.route){ WelcomeScreen(navHostController)}
 
         composable(NavigationItem.Popular_Screen.route){ PopularScreenUI(PopularViewModel(),navHostController)}
 

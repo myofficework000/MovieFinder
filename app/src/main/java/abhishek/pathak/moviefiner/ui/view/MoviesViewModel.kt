@@ -1,6 +1,7 @@
 package abhishek.pathak.moviefiner.ui.view
 
 import abhishek.pathak.moviefiner.model.Repository
+import abhishek.pathak.moviefiner.model.data.Movie
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -43,7 +43,8 @@ fun popularUIWelcome(popularViewModel: PopularViewModel = viewModel(), navContro
 
 
     Column(modifier = Modifier
-        .fillMaxSize()
+        .wrapContentHeight()
+        .fillMaxWidth()
         .background(White)) {
         Row(
             modifier = Modifier
