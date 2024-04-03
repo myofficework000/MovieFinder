@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.view.screens
+package abhishek.pathak.moviefiner.model.Details
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.ui.theme.dp_10

@@ -42,6 +42,7 @@ val dp_168 = 168.dp
 val dp_170 = 170.dp
 val dp_172 = 172.dp
 val dp_180 = 180.dp
+val dp_200=200.dp
 val dp_300 = 300.dp
 val dp_360 = 360.dp
 val dp_400 = 400.dp
