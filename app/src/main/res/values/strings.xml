@@ -17,6 +17,10 @@
     <string name="Cast_bill">Top Billed Cast</string>
     <string name="view_details">View Details</string>
 
+    <string name="upcoming">Upcoming</string>
+    <string name="view_all">View All</string>
+    <string name="cd_view_all">View all upcoming movies</string>
+
 
 
 
