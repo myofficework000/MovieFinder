@@ -2,6 +2,8 @@ package abhishek.pathak.moviefiner.ui.view
 
 import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.nowplaying.NowPlayingMovieViewModel
+import abhishek.pathak.moviefiner.nowplaying.NowPlayingScreen
 import abhishek.pathak.moviefiner.popular.popularUIWelcome
 import abhishek.pathak.moviefiner.ui.theme.*
 import abhishek.pathak.moviefiner.view.screens.TrendingRowUI
@@ -37,7 +39,12 @@ fun WelcomeScreen(navController: NavController) {
         ) {
             GreetingSection()
             SearchBar()
-            popularUIWelcome(PopularViewModel(), navController)
+            Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
+                popularUIWelcome(PopularViewModel(), navController)
+            }
+            Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
+                NowPlayingScreen(NowPlayingMovieViewModel(), navController)
+            }
             TrendingRowUI()
 //            MovieSection(sectionTitle = "Now Playing", movies = listOf(/* list of now playing movies */))
 //            MovieSection(sectionTitle = "Upcoming", movies = listOf(/* list of popular movies */))
