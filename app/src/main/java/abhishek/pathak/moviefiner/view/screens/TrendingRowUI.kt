@@ -45,7 +45,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 private fun TrendingUIPrev() {
     TrendingRowUI()
 }
-@OptIn(ExperimentalGlideComposeApi::class)
+
 @Composable
 fun TrendingRowUI(movieViewModel: HiltMovieViewModel = hiltViewModel()) {
 
@@ -132,7 +132,7 @@ fun MovieItemUI(movie: Movie, navController: NavController) {
         ){
 
         GlideImage(
-            model = {"https://image.tmdb.org/t/p/original/" + movie.poster_path},//image.tmdb.org/t/p/original/qrGtVFxaD8c7et0jUtaYhyTzzPg.jpg",
+            model = {"https://image.tmdb.org/t/p/original/" + movie.posterPath},//image.tmdb.org/t/p/original/qrGtVFxaD8c7et0jUtaYhyTzzPg.jpg",
             contentDescription = null)
 
             Image(painter = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -146,7 +146,7 @@ fun MovieItemUI(movie: Movie, navController: NavController) {
                 overflow = TextOverflow.Ellipsis
             )
 
-            Text(text = movie.release_date,
+            Text(text = movie.releaseDate,
                 fontSize = sp_10)
         }
     }

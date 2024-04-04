@@ -94,9 +94,9 @@ fun UpcomingUIWelcome(upcomingViewModel: UpcomingViewModel = viewModel(), navCon
                 items(list.size) { item ->
                     Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
                         ItemView(
-                            "${ConstantsUpcoming.IMAGE_ENDPOINT + list[item].poster_path}",
+                            "${ConstantsUpcoming.IMAGE_ENDPOINT + list[item].posterPath}",
                             list[item].title,
-                            list[item].release_date
+                            list[item].releaseDate
                         )
                     }
                 }
