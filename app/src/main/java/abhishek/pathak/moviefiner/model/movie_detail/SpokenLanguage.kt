@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.model.Details
+package abhishek.pathak.moviefiner.model.movie_detail
 
 data class SpokenLanguage(
     val english_name: String,

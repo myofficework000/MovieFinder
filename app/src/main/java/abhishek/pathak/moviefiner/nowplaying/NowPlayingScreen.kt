@@ -1,7 +1,7 @@
 package abhishek.pathak.moviefiner.nowplaying
 
 import abhishek.pathak.moviefiner.R
-import abhishek.pathak.moviefiner.popular.NavigationItem
+import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_172

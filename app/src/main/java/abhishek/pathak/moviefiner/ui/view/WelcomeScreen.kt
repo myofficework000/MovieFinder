@@ -4,7 +4,7 @@ import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.nowplaying.NowPlayingMovieViewModel
 import abhishek.pathak.moviefiner.nowplaying.NowPlayingScreen
-import abhishek.pathak.moviefiner.popular.popularUIWelcome
+import abhishek.pathak.moviefiner.popular.PopularUIWelcome
 import abhishek.pathak.moviefiner.ui.theme.*
 import abhishek.pathak.moviefiner.view.screens.TrendingRowUI
 import androidx.compose.foundation.Image
@@ -40,7 +40,7 @@ fun WelcomeScreen(navController: NavController) {
             GreetingSection()
             SearchBar()
             Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
-                popularUIWelcome(PopularViewModel(), navController)
+                PopularUIWelcome(PopularViewModel(), navController)
             }
             Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
                 NowPlayingScreen(NowPlayingMovieViewModel(), navController)

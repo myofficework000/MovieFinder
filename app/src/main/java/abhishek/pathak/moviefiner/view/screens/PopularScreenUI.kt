@@ -2,14 +2,11 @@ package abhishek.pathak.moviefiner.view.screens
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.popular.ConstantsPopular
-import abhishek.pathak.moviefiner.popular.NavigationItem
+import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_10
-import abhishek.pathak.moviefiner.ui.theme.dp_172
 import abhishek.pathak.moviefiner.ui.theme.dp_4
-import abhishek.pathak.moviefiner.ui.theme.dp_50
-import abhishek.pathak.moviefiner.ui.theme.dp_60
 import abhishek.pathak.moviefiner.ui.theme.sp_12
 import abhishek.pathak.moviefiner.ui.theme.sp_14
 import abhishek.pathak.moviefiner.ui.theme.sp_20
@@ -21,7 +18,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells

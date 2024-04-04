@@ -1,6 +1,7 @@
 package abhishek.pathak.moviefiner.popular
 
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_172
 import abhishek.pathak.moviefiner.ui.theme.dp_32
@@ -13,7 +14,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -36,16 +36,20 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun popularUIWelcome(popularViewModel: PopularViewModel = viewModel(), navController: NavController) {
+fun PopularUIWelcome(
+    popularViewModel: PopularViewModel = viewModel(),
+    navController: NavController
+) {
     popularViewModel.fetchUpcomingMovieData()
     val movieImage = popularViewModel.popularLiveData.observeAsState()
+    val errorData = popularViewModel.errorData.observeAsState()
 
-
-
-    Column(modifier = Modifier
-        .wrapContentHeight()
-        .fillMaxWidth()
-        .background(White)) {
+    Column(
+        modifier = Modifier
+            .wrapContentHeight()
+            .fillMaxWidth()
+            .background(White)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,7 +78,7 @@ fun popularUIWelcome(popularViewModel: PopularViewModel = viewModel(), navContro
                     )
 
                     IconButton(
-                        onClick = { navController.navigate(NavigationItem.LISTSCREEN.route)},
+                        onClick = { navController.navigate(NavigationItem.LISTSCREEN.route) },
                         modifier = Modifier.size(dp_32)
                     ) {
                         Icon(
@@ -91,26 +95,25 @@ fun popularUIWelcome(popularViewModel: PopularViewModel = viewModel(), navContro
                 .background(White)
         ) {
             val list = movieImage.value?.results
-            if(list!=null){
-                    items(list.size) { item ->
-                        Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
-                            ItemView(
-                                "${ConstantsPopular.IMAGE_ENDPOINT + list[item].poster_path}.toString()",
-                                list[item].title.toString(),
-                                list[item].release_date.toString()
-                            )
-                        }
+            if (list != null) {
+                items(list.size) { item ->
+                    Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
+                        ItemView(
+                            "${ConstantsPopular.IMAGE_ENDPOINT + list[item].poster_path}.toString()",
+                            list[item].title.toString(),
+                            list[item].release_date.toString()
+                        )
                     }
                 }
-                else{
-                    Log.e("error",list.toString())
-                }
+            } else {
+                Log.e("error", errorData.value.toString())
             }
         }
     }
+}
 
 @Preview
 @Composable
-fun popularUIWelcomePrev() {
-    popularUIWelcome(popularViewModel = PopularViewModel(),rememberNavController())
+fun PopularUIWelcomePrev() {
+    PopularUIWelcome(popularViewModel = PopularViewModel(), rememberNavController())
 }

@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.model.Details
+package abhishek.pathak.moviefiner.model.movie_detail
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.ui.theme.dp_10
@@ -43,6 +43,7 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun MovieDetailsScreen(navController: NavController, movieID: String?) {
+
     Column(
         modifier = Modifier
             .fillMaxHeight()

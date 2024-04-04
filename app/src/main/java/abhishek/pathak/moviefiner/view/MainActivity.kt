@@ -1,6 +1,6 @@
 package abhishek.pathak.moviefiner.view
 
-import abhishek.pathak.moviefiner.popular.AppNavHost
+import abhishek.pathak.moviefiner.navigation.AppNavHost
 import abhishek.pathak.moviefiner.ui.theme.MovieFinerTheme
 import abhishek.pathak.moviefiner.view.screens.TrendingRowUI
 import android.os.Bundle

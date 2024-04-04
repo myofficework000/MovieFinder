@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.model.Details
+package abhishek.pathak.moviefiner.model.movie_detail
 
 import abhishek.pathak.moviefiner.nowplaying.Constants.API_KEY
 import abhishek.pathak.moviefiner.nowplaying.RetrofitBuilder

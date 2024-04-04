@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.popular
+package abhishek.pathak.moviefiner.navigation
 
 enum class Screen {
     WELCOME,
