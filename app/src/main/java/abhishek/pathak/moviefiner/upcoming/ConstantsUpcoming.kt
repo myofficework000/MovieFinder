@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.Upcoming
+package abhishek.pathak.moviefiner.upcoming
 
 object ConstantsUpcoming {
     const val BASE_URL = "https://api.themoviedb.org/3/"

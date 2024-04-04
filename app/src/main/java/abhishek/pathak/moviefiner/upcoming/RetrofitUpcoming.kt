@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.Upcoming
+package abhishek.pathak.moviefiner.upcoming
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

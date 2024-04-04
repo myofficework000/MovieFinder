@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.Upcoming
+package abhishek.pathak.moviefiner.upcoming
 
 sealed class NavigationItem(val route: String) {
     object WELCOME : NavigationItem("welcome")

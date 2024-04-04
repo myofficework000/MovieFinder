@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.Upcoming
+package abhishek.pathak.moviefiner.upcoming
 
 import abhishek.pathak.moviefiner.model.data.UpcomingResponse
 import retrofit2.Call

@@ -5,6 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
+    //add logging interceptor
     private lateinit var retrofit: Retrofit
     fun getRetrofit(): Retrofit {
         if(!RetrofitBuilder::retrofit.isInitialized){

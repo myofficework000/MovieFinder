@@ -1,8 +1,6 @@
 package abhishek.pathak.moviefiner.upcoming
 
 import abhishek.pathak.moviefiner.R
-import abhishek.pathak.moviefiner.Upcoming.ConstantsUpcoming
-import abhishek.pathak.moviefiner.Upcoming.UpcomingViewModel
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_172
 import abhishek.pathak.moviefiner.ui.theme.dp_32
@@ -38,13 +36,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun UpcomingUIWelcome(upcomingViewModel: UpcomingViewModel = viewModel(), navController: NavController) {
+fun UpcomingUIWelcome(
+    upcomingViewModel: UpcomingViewModel = viewModel(),
+    navController: NavController
+) {
     upcomingViewModel.fetchUpcomingMovieData()
     val movieImage = upcomingViewModel.upcomingLiveData.observeAsState()
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(White)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -90,7 +93,7 @@ fun UpcomingUIWelcome(upcomingViewModel: UpcomingViewModel = viewModel(), navCon
                 .background(White)
         ) {
             val list = movieImage.value?.results
-            if(list != null){
+            if (list != null) {
                 items(list.size) { item ->
                     Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
                         ItemView(
