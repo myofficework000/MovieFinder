@@ -4,5 +4,8 @@ enum class Screen {
     WELCOME,
     LISTSCREEN,
     DETAILSSCREEN,
-    UPCOMINGSCREEN
+    DETAILS_SCREEN,
+    NOW_PLAYING_DETAILS,
+
+
 }
