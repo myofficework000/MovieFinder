@@ -1,5 +1,6 @@
-package abhishek.pathak.moviefiner.popular
+package abhishek.pathak.moviefiner.model.api
 
+import abhishek.pathak.moviefiner.model.api.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -8,11 +9,11 @@ object RetrofitBuilder {
 
     fun getRetrofit(): Retrofit{
         if(!RetrofitBuilder::retrofit.isInitialized){
-            retrofit=Retrofit.Builder()
+            retrofit =Retrofit.Builder()
                 .addConverterFactory(
                         GsonConverterFactory.create()
                         )
-                .baseUrl(ConstantsPopular.BASE_URL)
+                .baseUrl(BASE_URL)
                 .build()
         }
         return retrofit

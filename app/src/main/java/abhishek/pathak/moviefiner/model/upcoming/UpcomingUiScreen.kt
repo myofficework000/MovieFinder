@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.popular
+package abhishek.pathak.moviefiner.model.upcoming
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.model.api.Constants.IMAGE_ENDPOINT
@@ -36,13 +36,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun PopularUIWelcome(
-    popularViewModel: PopularViewModel = viewModel(),
+fun UpcomingUiScreen(
+    upcomingViewModel: UpcomingViewModel = viewModel(),
     navController: NavController
 ) {
-    popularViewModel.fetchUpcomingMovieData()
-    val movieImage = popularViewModel.popularLiveData.observeAsState()
-    val errorData = popularViewModel.errorData.observeAsState()
+    upcomingViewModel.fetchUpcomingMovieData()
+    val movieImage = upcomingViewModel.upcomingLiveData.observeAsState()
+    val errorData = upcomingViewModel.errorLiveData.observeAsState()
 
     Column(
         modifier = Modifier
@@ -58,7 +58,7 @@ fun PopularUIWelcome(
             verticalAlignment = Alignment.Top
         ) {
             Text(
-                text = stringResource(id = R.string.popular),
+                text = stringResource(id = R.string.upcoming),
                 fontWeight = FontWeight.Bold,
                 fontSize = sp_20,
                 modifier = Modifier
@@ -78,7 +78,7 @@ fun PopularUIWelcome(
                     )
 
                     IconButton(
-                        onClick = { navController.navigate(NavigationItem.LISTSCREEN.route) },
+                        onClick = { navController.navigate(NavigationItem.UPCOMING_LIST.route) },
                         modifier = Modifier.size(dp_32)
                     ) {
                         Icon(
@@ -98,7 +98,7 @@ fun PopularUIWelcome(
             if (list != null) {
                 items(list.size) { item ->
                     Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
-                        ItemView(
+                        abhishek.pathak.moviefiner.popular.ItemView(
                             "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
                             list[item].title.toString(),
                             list[item].release_date.toString()
@@ -114,6 +114,6 @@ fun PopularUIWelcome(
 
 @Preview
 @Composable
-fun PopularUIWelcomePrev() {
-    PopularUIWelcome(popularViewModel = PopularViewModel(), rememberNavController())
+fun UpcomingUiScreenPrev() {
+    UpcomingUiScreen(UpcomingViewModel(), rememberNavController())
 }

@@ -4,6 +4,8 @@
     <string name="date">2022-12-14</string>
     <string name="popular">Popular</string>
     <string name="NowPlaying">Now Playing</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="top_rated">Top Rated</string>
 
 
     //movie details screen
@@ -21,7 +23,7 @@
     <string name="View_Details">View all  >></string>
 
 
-    <string name="upcoming">Upcoming</string>
+
     <string name="view_all">View All</string>
     <string name="cd_view_all">View all upcoming movies</string>
 

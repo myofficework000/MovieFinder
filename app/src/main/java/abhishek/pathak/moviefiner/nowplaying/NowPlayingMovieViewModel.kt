@@ -1,6 +1,9 @@
 package abhishek.pathak.moviefiner.nowplaying
 
-import abhishek.pathak.moviefiner.nowplaying.Constants.API_KEY
+import abhishek.pathak.moviefiner.model.api.ApiService
+import abhishek.pathak.moviefiner.model.api.Constants.API_KEY
+import abhishek.pathak.moviefiner.model.api.RetrofitBuilder
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,22 +16,22 @@ class NowPlayingMovieViewModel : ViewModel() {
     val nowPlayingLiveData: LiveData<NowplayingMovieResponse> = _nowPlayingLiveData
     private val _errorData = MutableLiveData<String>()
     val errorData: LiveData<String> = _errorData
-    fun fetchNowPlayingMovieData(){
-        val apiService= RetrofitBuilder.getRetrofit().create(ApiService::class.java)
+    fun fetchNowPlayingMovieData() {
+        val apiService = RetrofitBuilder.getRetrofit().create(ApiService::class.java)
         apiService.getNowPlayingMovie(API_KEY).enqueue(
-            object : Callback<NowplayingMovieResponse>{
+            object : Callback<NowplayingMovieResponse> {
                 override fun onResponse(
                     call: Call<NowplayingMovieResponse>,
                     response: Response<NowplayingMovieResponse>
                 ) {
-                    _nowPlayingLiveData.value=response.body()
+                    Log.e("data", response.body().toString())
+                    _nowPlayingLiveData.value = response.body()
                 }
 
                 override fun onFailure(call: Call<NowplayingMovieResponse>, t: Throwable) {
-                    _errorData.value=t.message
+                    _errorData.value = t.message
                 }
             }
         )
     }
-
 }

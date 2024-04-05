@@ -1,20 +1,38 @@
 package abhishek.pathak.moviefiner.ui.view
 
-import abhishek.pathak.moviefiner.popular.PopularViewModel
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.model.top_rated.TopRatedUIScreen
+import abhishek.pathak.moviefiner.model.top_rated.TopRatedViewModel
+import abhishek.pathak.moviefiner.model.upcoming.UpcomingUiScreen
+import abhishek.pathak.moviefiner.model.upcoming.UpcomingViewModel
 import abhishek.pathak.moviefiner.nowplaying.NowPlayingMovieViewModel
-import abhishek.pathak.moviefiner.nowplaying.NowPlayingScreen
+import abhishek.pathak.moviefiner.popular.NowPlayingScreen
 import abhishek.pathak.moviefiner.popular.PopularUIWelcome
-import abhishek.pathak.moviefiner.ui.theme.*
-import abhishek.pathak.moviefiner.view.screens.TrendingRowUI
+import abhishek.pathak.moviefiner.popular.PopularViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,21 +52,44 @@ fun WelcomeScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(White)
+                .verticalScroll(rememberScrollState())
+                .background(Color.White)
                 .padding(padding)
         ) {
             GreetingSection()
             SearchBar()
-            Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .height(400.dp)
+                    .fillMaxWidth()
+            ) {
                 PopularUIWelcome(PopularViewModel(), navController)
             }
-            Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .height(400.dp)
+                    .fillMaxWidth()
+            ) {
                 NowPlayingScreen(NowPlayingMovieViewModel(), navController)
             }
-            TrendingRowUI()
-//            MovieSection(sectionTitle = "Now Playing", movies = listOf(/* list of now playing movies */))
-//            MovieSection(sectionTitle = "Upcoming", movies = listOf(/* list of popular movies */))
-//            MovieSection(sectionTitle = "Top Rated", movies = listOf(/* list of popular movies */))
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .height(400.dp)
+                    .fillMaxWidth()
+            ) {
+                UpcomingUiScreen(UpcomingViewModel(), navController)
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .height(400.dp)
+                    .fillMaxWidth()
+            ) {
+                TopRatedUIScreen(TopRatedViewModel(), navController)
+            }
         }
     }
 }

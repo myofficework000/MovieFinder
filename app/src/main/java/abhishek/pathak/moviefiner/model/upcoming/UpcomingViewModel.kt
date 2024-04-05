@@ -1,5 +1,8 @@
-package abhishek.pathak.moviefiner.upcoming
+package abhishek.pathak.moviefiner.model.upcoming
 
+import abhishek.pathak.moviefiner.model.api.ApiService
+import abhishek.pathak.moviefiner.model.api.Constants.API_KEY
+import abhishek.pathak.moviefiner.model.api.RetrofitBuilder
 import abhishek.pathak.moviefiner.model.data.UpcomingResponse
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,8 +19,8 @@ class UpcomingViewModel : ViewModel() {
     val errorLiveData: LiveData<String> = _errorLiveData
 
     fun fetchUpcomingMovieData() {
-        val apiService = RetrofitUpcoming.getRetrofit().create(ApiServiceUpcoming::class.java)
-        apiService.getUpcomingMovies(ConstantsUpcoming.API_KEY).enqueue(object : Callback<UpcomingResponse> {
+        val apiService = RetrofitBuilder.getRetrofit().create(ApiService::class.java)
+        apiService.getUpcomingMovies(API_KEY).enqueue(object : Callback<UpcomingResponse> {
             override fun onResponse(call: Call<UpcomingResponse>, response: Response<UpcomingResponse>) {
                 if (response.isSuccessful) {
                     _upcomingLiveData.value = response.body()
