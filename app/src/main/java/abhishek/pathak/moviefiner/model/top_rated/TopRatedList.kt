@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.nowplaying
+package abhishek.pathak.moviefiner.model.top_rated
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.model.api.Constants.IMAGE_ENDPOINT
@@ -34,14 +34,14 @@ import androidx.navigation.compose.rememberNavController
 
 @Preview
 @Composable
-fun NowPlayingListPrev() {
-    NowPlayingList(NowPlayingMovieViewModel(), rememberNavController())
+fun TopRatedListPrev() {
+    TopRatedList(TopRatedViewModel(), rememberNavController())
 }
 
 @Composable
-fun NowPlayingList(nowPlayingMovieViewModel: NowPlayingMovieViewModel = viewModel(),navController: NavController) {
-    nowPlayingMovieViewModel.fetchNowPlayingMovieData()
-    val movieImage = nowPlayingMovieViewModel.nowPlayingLiveData.observeAsState()
+fun TopRatedList(topRatedViewModel: TopRatedViewModel = viewModel(),navController: NavController) {
+    topRatedViewModel.fetchTopRatedMovieData()
+    val movieImage = topRatedViewModel.topRatedLiveData.observeAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +59,7 @@ fun NowPlayingList(nowPlayingMovieViewModel: NowPlayingMovieViewModel = viewMode
             ) { }
 
             Text(
-                text = stringResource(id = R.string.NowPlaying),
+                text = stringResource(id = R.string.top_rated),
                 fontWeight = FontWeight.Bold,
                 fontSize = sp_20,
                 modifier = Modifier.fillMaxWidth(),
@@ -90,7 +90,6 @@ fun NowPlayingList(nowPlayingMovieViewModel: NowPlayingMovieViewModel = viewMode
         }
     }
 }
-
 
 
 @Preview

@@ -1,19 +1,20 @@
-package abhishek.pathak.moviefiner.upcoming
+package abhishek.pathak.moviefiner.model.top_rated
 
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.model.api.Constants.IMAGE_ENDPOINT
+import abhishek.pathak.moviefiner.navigation.NavigationItem
+import abhishek.pathak.moviefiner.popular.ItemView
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_172
 import abhishek.pathak.moviefiner.ui.theme.dp_32
 import abhishek.pathak.moviefiner.ui.theme.dp_60
 import abhishek.pathak.moviefiner.ui.theme.sp_16
 import abhishek.pathak.moviefiner.ui.theme.sp_20
-import abhishek.pathak.moviefiner.view.screens.ItemView
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -36,16 +37,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun UpcomingUIWelcome(
-    upcomingViewModel: UpcomingViewModel = viewModel(),
+fun TopRatedUIScreen(
+    topRatedViewModel: TopRatedViewModel = viewModel(),
     navController: NavController
 ) {
-    upcomingViewModel.fetchUpcomingMovieData()
-    val movieImage = upcomingViewModel.upcomingLiveData.observeAsState()
+    topRatedViewModel.fetchTopRatedMovieData()
+    val movieImage = topRatedViewModel.topRatedLiveData.observeAsState()
+    val errorData = topRatedViewModel.errorData.observeAsState()
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .wrapContentHeight()
+            .fillMaxWidth()
             .background(White)
     ) {
         Row(
@@ -56,7 +59,7 @@ fun UpcomingUIWelcome(
             verticalAlignment = Alignment.Top
         ) {
             Text(
-                text = stringResource(id = R.string.upcoming),
+                text = stringResource(id = R.string.top_rated),
                 fontWeight = FontWeight.Bold,
                 fontSize = sp_20,
                 modifier = Modifier
@@ -69,19 +72,19 @@ fun UpcomingUIWelcome(
             ) {
                 Row(modifier = Modifier.align(Alignment.TopEnd)) {
                     Text(
-                        text = stringResource(id = R.string.view_all),
+                        text = stringResource(id = R.string.view_details),
                         fontSize = sp_16,
                         modifier = Modifier,
                         color = Color.Gray
                     )
 
                     IconButton(
-                        onClick = { /* navigate to the upcoming list screen */ },
+                        onClick = { navController.navigate(NavigationItem.TOPRATED_LIST.route) },
                         modifier = Modifier.size(dp_32)
                     ) {
                         Icon(
-                            painter = painterResource(id = R.drawable.baseline_keyboard_double_arrow_right_24),
-                            contentDescription = stringResource(id = R.string.cd_view_all)
+                            painter = painterResource(id = R.drawable.baseline_keyboard_double_arrow_right_24_popular),
+                            contentDescription = null
                         )
                     }
                 }
@@ -97,14 +100,14 @@ fun UpcomingUIWelcome(
                 items(list.size) { item ->
                     Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
                         ItemView(
-                            "${ConstantsUpcoming.IMAGE_ENDPOINT + list[item].posterPath}",
-                            list[item].title,
-                            list[item].releaseDate
+                            "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
+                            list[item].title.toString(),
+                            list[item].release_date.toString()
                         )
                     }
                 }
             } else {
-                Log.e("error", "Error fetching upcoming movies.")
+                Log.e("error", errorData.value.toString())
             }
         }
     }
@@ -112,6 +115,6 @@ fun UpcomingUIWelcome(
 
 @Preview
 @Composable
-fun UpcomingUIWelcomePrev() {
-    UpcomingUIWelcome(upcomingViewModel = UpcomingViewModel(), rememberNavController())
+fun TopRatedUiScreenPrev() {
+    TopRatedUIScreen(topRatedViewModel = TopRatedViewModel(), rememberNavController())
 }

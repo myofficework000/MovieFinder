@@ -1,5 +1,8 @@
 package abhishek.pathak.moviefiner.popular
 
+import abhishek.pathak.moviefiner.model.api.ApiService
+import abhishek.pathak.moviefiner.model.api.Constants.API_KEY
+import abhishek.pathak.moviefiner.model.api.RetrofitBuilder
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,8 +17,8 @@ class PopularViewModel : ViewModel() {
     private val _errorData = MutableLiveData<String>()
     val errorData: LiveData<String> = _errorData
     fun fetchUpcomingMovieData() {
-        val apiService = RetrofitBuilder.getRetrofit().create(ApiServicePopular::class.java)
-        apiService.getMovie(ConstantsPopular.API_KEY).enqueue(
+        val apiService = RetrofitBuilder.getRetrofit().create(ApiService::class.java)
+        apiService.getMovie(API_KEY).enqueue(
             object : Callback<PopularResponse> {
                 override fun onResponse(
                     call: Call<PopularResponse>,
