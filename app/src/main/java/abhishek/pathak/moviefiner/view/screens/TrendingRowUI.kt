@@ -2,6 +2,7 @@ package abhishek.pathak.moviefiner.view.screens
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.model.data.Movie
+import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.ui.theme.LightGray20
 import abhishek.pathak.moviefiner.ui.theme.dp_16
 import abhishek.pathak.moviefiner.ui.theme.dp_20

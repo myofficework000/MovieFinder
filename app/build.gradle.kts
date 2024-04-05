@@ -99,9 +99,9 @@ dependencies {
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 
     //for observe as state
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.4")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.5")
 
-    implementation ("io.coil-kt:coil-compose:2.4.0")
+    implementation ("io.coil-kt:coil-compose:2.6.0")
 
     //Dagger-hilt
     implementation("com.google.dagger:hilt-android:2.48.1")
@@ -109,7 +109,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation("com.google.code.gson:gson:2.10.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.4")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.5")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
     implementation ("androidx.navigation:navigation-compose:2.7.7")
 }
