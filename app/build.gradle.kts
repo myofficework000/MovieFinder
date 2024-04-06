@@ -99,9 +99,12 @@ dependencies {
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 
     //for observe as state
+<<<<<<< HEAD
     implementation("androidx.compose.runtime:runtime-livedata:1.6.5")
 
     implementation ("io.coil-kt:coil-compose:2.6.0")
+=======
+>>>>>>> 810bd4a702df089b31471899b11d83aaa3046200
 
     //Dagger-hilt
     implementation("com.google.dagger:hilt-android:2.48.1")
