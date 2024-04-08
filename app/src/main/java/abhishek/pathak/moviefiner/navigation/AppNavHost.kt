@@ -1,17 +1,14 @@
 package abhishek.pathak.moviefiner.navigation
 
+import abhishek.pathak.moviefiner.hilt.view.WelcomeScreen
+import abhishek.pathak.moviefiner.hilt.view.screens.NowPlayingScreenUI
+import abhishek.pathak.moviefiner.hilt.view.screens.PopularScreenUI
+import abhishek.pathak.moviefiner.hilt.view.screens.TopRatedScreenUI
+import abhishek.pathak.moviefiner.hilt.view.screens.UpcomingScreenUI
 import abhishek.pathak.moviefiner.model.movie_detail.MovieDetailsScreen
-import abhishek.pathak.moviefiner.model.top_rated.TopRatedList
-import abhishek.pathak.moviefiner.model.top_rated.TopRatedViewModel
-import abhishek.pathak.moviefiner.model.upcoming.UpcomingListUi
-import abhishek.pathak.moviefiner.model.upcoming.UpcomingViewModel
-import abhishek.pathak.moviefiner.nowplaying.NowPlayingList
-import abhishek.pathak.moviefiner.nowplaying.NowPlayingMovieViewModel
-import abhishek.pathak.moviefiner.popular.PopularScreenUI
-import abhishek.pathak.moviefiner.popular.PopularViewModel
-import abhishek.pathak.moviefiner.ui.view.WelcomeScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -32,18 +29,18 @@ fun AppNavHost(
         composable(NavigationItem.WELCOME.route) {
             WelcomeScreen(navHostController)
         }
-        composable(NavigationItem.LISTSCREEN.route) {
-            PopularScreenUI(popularViewModel = PopularViewModel(), navHostController)
+       composable(NavigationItem.POPULARLISTSCREEN.route) {
+            PopularScreenUI(hiltViewModel(), navHostController)
         }
 
-        composable(NavigationItem.NOW_PLAYING_DETAILS.route) {
-            NowPlayingList(NowPlayingMovieViewModel(),navHostController)
+        composable(NavigationItem.NOWPLAYINGLISTSCREEN.route) {
+            NowPlayingScreenUI(hiltViewModel(),navHostController)
         }
-        composable(NavigationItem.UPCOMING_LIST.route) {
-            UpcomingListUi(UpcomingViewModel(),navHostController)
+        composable(NavigationItem.UPCOMINGLISTSCREEN.route) {
+            UpcomingScreenUI(hiltViewModel(),navHostController)
         }
-        composable(NavigationItem.TOPRATED_LIST.route) {
-            TopRatedList(TopRatedViewModel(),navHostController)
+        composable(NavigationItem.TOPRATEDLISTSCREEN.route) {
+            TopRatedScreenUI(hiltViewModel(),navHostController)
         }
         composable(
             "DETAILS_SCREEN/{movie_id}",
