@@ -1,7 +1,7 @@
 package abhishek.pathak.moviefiner.model.movie_detail
 
 import abhishek.pathak.moviefiner.R
-import abhishek.pathak.moviefiner.hilt.viewmodel.HiltViewModel
+import abhishek.pathak.moviefiner.hilt.viewmodel.MovieListsViewModel
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_100
 import abhishek.pathak.moviefiner.ui.theme.dp_120
@@ -45,7 +45,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MovieDetailsScreen(navController: NavController, movieID: String?,detailsViewModel: HiltViewModel= hiltViewModel()) {
+fun MovieDetailsScreen(navController: NavController, movieID: String?,detailsViewModel: MovieListsViewModel= hiltViewModel()) {
     val movieID="823464"
     detailsViewModel.fetchMovieDetails("823464")
     val movieImage =detailsViewModel.detailsLiveData.observeAsState()

@@ -2,7 +2,7 @@ package abhishek.pathak.moviefiner.hilt.view.screens
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.hilt.model.Constants.IMAGE_ENDPOINT
-import abhishek.pathak.moviefiner.hilt.viewmodel.HiltViewModel
+import abhishek.pathak.moviefiner.hilt.viewmodel.MovieListsViewModel
 import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.sp_20
@@ -31,7 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 @Composable
-fun UpcomingScreenUI(upcomingViewModel: HiltViewModel = hiltViewModel(), navController: NavController) {
+fun UpcomingScreenUI(upcomingViewModel: MovieListsViewModel = hiltViewModel(), navController: NavController) {
     upcomingViewModel.fetchUpcomingMovieDetails()
     val movieImage = upcomingViewModel.upcomingLiveData.observeAsState()
     Column(

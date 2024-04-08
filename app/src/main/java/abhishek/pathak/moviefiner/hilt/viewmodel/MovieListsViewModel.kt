@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class HiltViewModel @Inject constructor(private  val movieRepository : MovieRepository): ViewModel() {
+class MovieListsViewModel @Inject constructor(private  val movieRepository : MovieRepository): ViewModel() {
 
     private val _popularLiveData = MutableLiveData<PopularResponse>()
     val popularLiveData: LiveData<PopularResponse> = _popularLiveData

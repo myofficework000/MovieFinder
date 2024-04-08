@@ -2,7 +2,7 @@ package abhishek.pathak.moviefiner.hilt.view.screens
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.hilt.model.Constants.IMAGE_ENDPOINT
-import abhishek.pathak.moviefiner.hilt.viewmodel.HiltViewModel
+import abhishek.pathak.moviefiner.hilt.viewmodel.MovieListsViewModel
 import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.ui.theme.White
 import abhishek.pathak.moviefiner.ui.theme.dp_10
@@ -41,7 +41,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 
 @Composable
-fun PopularScreenUI(popularViewModel: HiltViewModel = hiltViewModel(), navController: NavController) {
+fun PopularScreenUI(popularViewModel: MovieListsViewModel = hiltViewModel(), navController: NavController) {
     popularViewModel.fetchPopularMovieDetails()
     val movieImage = popularViewModel.popularLiveData.observeAsState()
     Column(
