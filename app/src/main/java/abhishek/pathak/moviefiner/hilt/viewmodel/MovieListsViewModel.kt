@@ -116,7 +116,7 @@ class MovieListsViewModel @Inject constructor(private  val movieRepository : Mov
     private lateinit var detailsDisposable: Disposable
 
 
-    fun fetchMovieDetails(movieId: String){
+    fun fetchMovieDetails(){
         detailsDisposable = movieRepository.getDetails()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
