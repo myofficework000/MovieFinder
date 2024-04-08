@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.model.movie_detail
+package abhishek.pathak.moviefiner.hilt.model.details
 
 data class Genre(
     val id: Int,

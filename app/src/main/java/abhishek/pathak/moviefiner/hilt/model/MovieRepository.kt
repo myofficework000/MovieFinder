@@ -9,4 +9,5 @@ class MovieRepository @Inject constructor(private val apiService: ApiService) {
     fun getUpcomingMovie() = apiService.getUpcomingMovies(API_KEY)
     fun getNowPlayingMovie() = apiService.getNowPlayingMovie(API_KEY)
     fun getTopRatedMovie()=apiService.getTopRatedMovies(API_KEY)
+    fun getDetails()=apiService.getDetails("823464", API_KEY)
 }

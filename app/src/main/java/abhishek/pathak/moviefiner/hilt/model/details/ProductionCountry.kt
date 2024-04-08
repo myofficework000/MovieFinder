@@ -1,4 +1,4 @@
-package abhishek.pathak.moviefiner.model.movie_detail
+package abhishek.pathak.moviefiner.hilt.model.details
 
 data class ProductionCountry(
     val iso_3166_1: String,

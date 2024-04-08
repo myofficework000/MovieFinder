@@ -6,6 +6,7 @@ import abhishek.pathak.moviefiner.model.data.UpcomingResponse
 import abhishek.pathak.moviefiner.hilt.model.toprated.TopRatedResponse
 import abhishek.pathak.moviefiner.hilt.model.nowplaying.NowplayingMovieResponse
 import abhishek.pathak.moviefiner.hilt.model.popular.PopularResponse
+import abhishek.pathak.moviefiner.hilt.model.details.MovieDetailsResponse
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -107,6 +108,28 @@ class HiltViewModel @Inject constructor(private  val movieRepository : MovieRepo
                 }
             )
     }
+    private val _detailsLiveData = MutableLiveData<MovieDetailsResponse>()
+    val detailsLiveData: LiveData<MovieDetailsResponse> = _detailsLiveData
+
+    private val _detailsErrorData = MutableLiveData<String>()
+    val detailsErrorData: LiveData<String> = _detailsErrorData
+    private lateinit var detailsDisposable: Disposable
+
+
+    fun fetchMovieDetails(movieId: String){
+        detailsDisposable = movieRepository.getDetails()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _detailsLiveData.value = it
+                    Log.e("url",it.toString())
+                },{
+                    _detailsErrorData.value = it.message
+                    Log.e("urlerror",it.message.toString())
+                }
+            )
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -121,6 +144,9 @@ class HiltViewModel @Inject constructor(private  val movieRepository : MovieRepo
         }
         if(this::upcomingDisposable.isInitialized){
             upcomingDisposable.dispose()
+        }
+        if(this::detailsDisposable.isInitialized){
+            detailsDisposable.dispose()
         }
     }
 }
