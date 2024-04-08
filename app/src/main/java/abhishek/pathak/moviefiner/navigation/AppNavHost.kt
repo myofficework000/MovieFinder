@@ -1,6 +1,7 @@
 package abhishek.pathak.moviefiner.navigation
 
 import abhishek.pathak.moviefiner.hilt.view.WelcomeScreen
+import abhishek.pathak.moviefiner.hilt.view.screens.FavoritesScreenUI
 import abhishek.pathak.moviefiner.hilt.view.screens.MovieDetailsScreen
 import abhishek.pathak.moviefiner.hilt.view.screens.NowPlayingScreenUI
 import abhishek.pathak.moviefiner.hilt.view.screens.PopularScreenUI
@@ -28,6 +29,9 @@ fun AppNavHost(
     ) {
         composable(NavigationItem.WELCOME.route) {
             WelcomeScreen(navHostController)
+        }
+        composable(NavigationItem.FAVORITE_SCREEN.route) {
+            FavoritesScreenUI(navHostController)
         }
         composable(NavigationItem.POPULARLISTSCREEN.route) {
             PopularScreenUI(hiltViewModel(), navHostController)
