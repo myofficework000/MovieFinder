@@ -10,6 +10,6 @@ interface MovieDao {
     @Insert
     fun insertMovie(result: Result)
 
-    /*@Query("Select * from movie")
-    fun fetchMovie(): List<Result>*/
+    @Query("Select * from movie")
+    fun fetchMovie(): List<Result>
 }

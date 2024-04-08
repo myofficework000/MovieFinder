@@ -22,4 +22,9 @@ object LocalDatabaseModule {
         "MovieDB"
     ).allowMainThreadQueries()
         .build()
+
+    @Provides
+    @Singleton
+    fun provideDao(database: AppDatabase) = database.movieDao()
+
 }

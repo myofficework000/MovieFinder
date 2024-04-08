@@ -5,7 +5,7 @@ import abhishek.pathak.moviefiner.hilt.model.MovieRepository
 import abhishek.pathak.moviefiner.hilt.model.nowplaying.NowplayingMovieResponse
 import abhishek.pathak.moviefiner.hilt.model.popular.PopularResponse
 import abhishek.pathak.moviefiner.hilt.model.toprated.TopRatedResponse
-import abhishek.pathak.moviefiner.model.data.UpcomingResponse
+import abhishek.pathak.moviefiner.hilt.model.upcoming.UpcomingResponse
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

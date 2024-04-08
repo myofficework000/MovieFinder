@@ -57,11 +57,12 @@ fun UpcomingUIWelcome(
                     Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
                         val data = list[item]
                         ItemView(
-                            "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
+                            "${IMAGE_ENDPOINT + list[item].posterPath}.toString()",
                             data.title,
-                            data.release_date,
+                            data.releaseDate,
                             navController,
-                            movieId = data.id.toString()
+                            movieId = data.id.toString(),
+                            data
                         )
                     }
                 }

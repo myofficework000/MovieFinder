@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -31,15 +32,19 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -90,9 +95,9 @@ fun PopularScreenUI(
                     Box(modifier = Modifier.fillMaxWidth()) {
                         val data = list[item]
                         ItemView(
-                            "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
+                            "${IMAGE_ENDPOINT + list[item].posterPath}.toString()",
                             data.title,
-                            data.release_date,
+                            data.releaseDate,
                             navController,
                             movieId = data.id.toString(),
                             data
@@ -118,8 +123,6 @@ fun ItemView(
 ) {
     val favouritesMovieViewModel: FavouritesMovieViewModel = hiltViewModel()
 
-    val favMovieList = favouritesMovieViewModel.favMovies.observeAsState()
-
     Card(
         modifier = Modifier.padding(dp_10),
         elevation = CardDefaults.cardElevation(dp_4),
@@ -132,16 +135,23 @@ fun ItemView(
                 .fillMaxWidth()
         ) {
 
-            Icon(
-                imageVector = Icons.Default.FavoriteBorder,
-                contentDescription = null,
-                modifier = Modifier.clickable {
-                    data?.let {
-                        favouritesMovieViewModel.add(it)
-                    }
-                })
-
             Column {
+
+                Surface(modifier = Modifier
+                    .clickable {
+                        data?.let {
+                            favouritesMovieViewModel.add(it)
+                        }
+                    }
+                    .size(80.dp).background(Color.Green),
+                    shadowElevation = 30.dp,
+                    tonalElevation = 30.dp) {
+                    Icon(
+                        imageVector = Icons.Default.FavoriteBorder,
+                        contentDescription = null
+                    )
+                }
+
                 GlideImage(
                     model = image,
                     contentDescription = null,

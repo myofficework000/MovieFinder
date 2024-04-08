@@ -6,10 +6,10 @@ import abhishek.pathak.moviefiner.hilt.model.Constants.POPULAR_MOVIE_ENDPOINT
 import abhishek.pathak.moviefiner.hilt.model.Constants.TOPRATED_MOVIE_ENDPOINT
 import abhishek.pathak.moviefiner.hilt.model.Constants.UPCOMING_MOVIE_ENDPOINT
 import abhishek.pathak.moviefiner.hilt.model.details.MovieDetailsResponse
-import abhishek.pathak.moviefiner.model.data.UpcomingResponse
 import abhishek.pathak.moviefiner.hilt.model.toprated.TopRatedResponse
 import abhishek.pathak.moviefiner.hilt.model.nowplaying.NowplayingMovieResponse
 import abhishek.pathak.moviefiner.hilt.model.popular.PopularResponse
+import abhishek.pathak.moviefiner.hilt.model.upcoming.UpcomingResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
