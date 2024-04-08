@@ -192,6 +192,9 @@ fun MovieDetailsScreen(
                 CastList()
             }
         }
+
+
+
     } ?: run {
         Text(text = (errorData.value.toString()))
     }

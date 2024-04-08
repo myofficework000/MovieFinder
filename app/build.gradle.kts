@@ -119,4 +119,11 @@ dependencies {
     //Rxjava
     implementation("io.reactivex.rxjava2:rxjava:2.2.7")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-rxjava2:$room_version")
 }

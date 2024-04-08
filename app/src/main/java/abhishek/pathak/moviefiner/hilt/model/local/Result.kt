@@ -1,10 +1,13 @@
-package abhishek.pathak.moviefiner.hilt.model.nowplaying
+package abhishek.pathak.moviefiner.hilt.model.local
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "Movie")
 data class Result(
     val adult: Boolean,
     val backdrop_path: String,
-    val genre_ids: List<Int>,
-    val id: Int,
+    @PrimaryKey val id: Int,
     val original_language: String,
     val original_title: String,
     val overview: String,

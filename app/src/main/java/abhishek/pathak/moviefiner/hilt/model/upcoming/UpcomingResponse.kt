@@ -1,5 +1,7 @@
 package abhishek.pathak.moviefiner.hilt.model.upcoming
 
+import abhishek.pathak.moviefiner.hilt.model.local.Result
+
 data class UpcomingResponse(
     val dates: Dates,
     val page: Int,

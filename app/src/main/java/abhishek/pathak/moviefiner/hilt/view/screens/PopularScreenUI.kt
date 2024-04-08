@@ -2,6 +2,8 @@ package abhishek.pathak.moviefiner.hilt.view.screens
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.hilt.model.Constants.IMAGE_ENDPOINT
+import abhishek.pathak.moviefiner.hilt.model.local.Result
+import abhishek.pathak.moviefiner.hilt.viewmodel.FavouritesMovieViewModel
 import abhishek.pathak.moviefiner.hilt.viewmodel.MovieListsViewModel
 import abhishek.pathak.moviefiner.navigation.NavigationItem
 import abhishek.pathak.moviefiner.ui.theme.White
@@ -12,6 +14,7 @@ import abhishek.pathak.moviefiner.ui.theme.sp_14
 import abhishek.pathak.moviefiner.ui.theme.sp_20
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,8 +25,11 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -88,7 +94,8 @@ fun PopularScreenUI(
                             data.title,
                             data.release_date,
                             navController,
-                            movieId = data.id.toString()
+                            movieId = data.id.toString(),
+                            data
                         )
                     }
                 }
@@ -106,8 +113,12 @@ fun ItemView(
     title: String,
     date: String,
     navController: NavController,
-    movieId: String
+    movieId: String,
+    data: Result?
 ) {
+    val favouritesMovieViewModel: FavouritesMovieViewModel = hiltViewModel()
+
+    val favMovieList = favouritesMovieViewModel.favMovies.observeAsState()
 
     Card(
         modifier = Modifier.padding(dp_10),
@@ -120,6 +131,16 @@ fun ItemView(
             Modifier
                 .fillMaxWidth()
         ) {
+
+            Icon(
+                imageVector = Icons.Default.FavoriteBorder,
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    data?.let {
+                        favouritesMovieViewModel.add(it)
+                    }
+                })
+
             Column {
                 GlideImage(
                     model = image,
