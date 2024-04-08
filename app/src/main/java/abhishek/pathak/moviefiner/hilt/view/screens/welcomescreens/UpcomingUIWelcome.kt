@@ -58,7 +58,8 @@ fun UpcomingUIWelcome(
                         ItemView(
                             "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
                             list[item].title.toString(),
-                            list[item].release_date.toString()
+                            list[item].release_date.toString(),
+                            navController
                         )
                     }
                 }

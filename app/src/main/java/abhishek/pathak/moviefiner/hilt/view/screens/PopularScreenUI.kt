@@ -82,7 +82,8 @@ fun PopularScreenUI(popularViewModel: MovieListsViewModel = hiltViewModel(), nav
                         ItemView(
                             "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
                             list[item].title,
-                            list[item].release_date
+                            list[item].release_date,
+                            navController
                       )
                     }
                 }
@@ -95,11 +96,12 @@ fun PopularScreenUI(popularViewModel: MovieListsViewModel = hiltViewModel(), nav
 
 @Composable
 @OptIn(ExperimentalGlideComposeApi::class)
-fun ItemView(image: String, title: String, date: String) {
+fun ItemView(image: String, title: String, date: String,navController: NavController) {
 
     Card(
         modifier = Modifier.padding(dp_10),
-        elevation = CardDefaults.cardElevation(dp_4)
+        elevation = CardDefaults.cardElevation(dp_4),
+        onClick = {navController.navigate(NavigationItem.DETAILS_SCREEN.route)}
     ) {
         Box(
             Modifier

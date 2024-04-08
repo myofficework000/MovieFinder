@@ -72,7 +72,8 @@ fun TopRatedScreenUI(topRatedViewModel: MovieListsViewModel = hiltViewModel(), n
                         ItemView(
                             "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
                             list[item].title,
-                            list[item].release_date
+                            list[item].release_date,
+                            navController
                         )
                     }
                 }

@@ -19,11 +19,6 @@ sealed class NavigationItem(val route: String) {
 
     /** Represents the top-rated list screen. */
     data object TOPRATEDLISTSCREEN: NavigationItem(Screen.TOPRATEDLISTSCREEN.name)
+    data object DETAILS_SCREEN: NavigationItem(Screen.DETAILS_SCREEN.name)
 
-    /**
-     * Represents the details screen for a specific movie.
-     * @property movie_id The ID of the movie.
-     */
-    data class DETAILS_SCREEN(val movie_id: Int) :
-        NavigationItem("${Screen.DETAILS_SCREEN.name}/$movie_id")
 }

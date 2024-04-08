@@ -34,7 +34,6 @@ interface ApiService {
     ): Single<TopRatedResponse>
     @GET(DETAILS_ENDPOINT)
     fun getDetails(
-        @Path("movieId") movieId: String,
         @Query("api_key") apiKey: String
     ): Single<MovieDetailsResponse>
 }

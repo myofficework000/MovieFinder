@@ -1,6 +1,7 @@
-package abhishek.pathak.moviefiner.model.movie_detail
+package abhishek.pathak.moviefiner.hilt.view.screens
 
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.hilt.model.Constants.IMAGE_ENDPOINT
 import abhishek.pathak.moviefiner.hilt.viewmodel.MovieListsViewModel
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_100
@@ -43,51 +44,72 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
 
 @Composable
-fun MovieDetailsScreen(navController: NavController, movieID: String?,detailsViewModel: MovieListsViewModel= hiltViewModel()) {
-    val movieID="823464"
-    detailsViewModel.fetchMovieDetails("823464")
-    val movieImage =detailsViewModel.detailsLiveData.observeAsState()
-    val errorData =detailsViewModel.detailsErrorData.observeAsState()
-    val basicDetails=movieImage.value
+@OptIn(ExperimentalGlideComposeApi::class)
+fun MovieDetailsScreen(navController: NavController,detailsViewModel: MovieListsViewModel = hiltViewModel()) {
+    detailsViewModel.fetchMovieDetails()
+    val movieImage = detailsViewModel.detailsLiveData.observeAsState()
+    val errorData = detailsViewModel.detailsErrorData.observeAsState()
+    val basicDetails = movieImage.value
+    val genres = basicDetails!!.genres
+    val stringBuilder = StringBuilder()
+    for (i in genres.indices) {
+        stringBuilder.append(genres[i].name)
 
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .background(Color.White),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        // Add a comma if it's not the last genre
+        if (i < genres.size - 1) {
+            stringBuilder.append(",")
+        }
+        val concatenatedGenres = stringBuilder.toString()
 
-        ) {
-        Row(
-            modifier = Modifier.align(Alignment.Start)
-        ){
-            ImageButton(
-                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-                contentDescription = stringResource(id = R.string.Button_description),
-                onClick = { /* Handle button click */ },
-                modifier = Modifier.padding(top= dp_10, bottom = dp_10))
-            Text(
-                text = basicDetails!!.title,
-                fontSize = sp_20,
-                color = Color.Black,
-                modifier = Modifier
-                    .padding(dp_10)
-                    .align(Alignment.CenterVertically)
-            )}
-            Box() {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(Color.White),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
+
+            ) {
+            Row(
+                modifier = Modifier.align(Alignment.Start)
+            ) {
+                ImageButton(
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                    contentDescription = stringResource(id = R.string.Button_description),
+                    onClick = {navController.popBackStack()},
+                    modifier = Modifier.padding(top = dp_10, bottom = dp_10)
+                )
+                Text(
+                    text = basicDetails.title,
+                    fontSize = sp_20,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(dp_10)
+                        .align(Alignment.CenterVertically)
+                )
+            }
+            Box {
+                val url1= "${IMAGE_ENDPOINT+basicDetails.belongs_to_collection.backdrop_path}"
+                val url2= "${IMAGE_ENDPOINT+basicDetails.belongs_to_collection.poster_path}"
+
+
+                GlideImage(
+                    model = url1,
                     contentDescription = null,
+                    loading = placeholder(R.drawable.ic_launcher_background),
                     modifier = Modifier
                         .wrapContentHeight()
                         .fillMaxWidth()
                         .padding(dp_20)
                 )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                GlideImage(
+                    model = url2,
                     contentDescription = null,
+                    loading = placeholder(R.drawable.ic_launcher_background),
                     modifier = Modifier
                         .size(dp_120)
                         .padding(start = dp_10, top = dp_20, bottom = dp_10)
@@ -95,18 +117,20 @@ fun MovieDetailsScreen(navController: NavController, movieID: String?,detailsVie
                 )
             }
             Text(
-                text =basicDetails!!.original_language ,
+                text = basicDetails.original_language,
                 fontSize = sp_20,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = dp_10
-                    , start = dp_10, end = dp_10)
+                modifier = Modifier.padding(
+                    top = dp_10, start = dp_10, end = dp_10
+                )
             )
             Text(
-                text = stringResource(id = R.string.description1),
+                text = "R ${basicDetails.release_date}(${basicDetails.original_language}) ${basicDetails.runtime}",   //R 2022-12-14(EN) 3h 12m
                 fontSize = sp_15
             )
+
             Text(
-                text = stringResource(id = R.string.Genre),
+                text = concatenatedGenres,
                 fontSize = sp_12,
                 color = Color.Gray
             )
@@ -136,7 +160,8 @@ fun MovieDetailsScreen(navController: NavController, movieID: String?,detailsVie
                     .padding(start = dp_10)
             )
             Text(
-                text = stringResource(id = R.string.description),
+                text = basicDetails.overview,
+                maxLines = 1,
                 fontSize = sp_14,
                 color = Color.Black,
                 modifier = Modifier
@@ -153,6 +178,7 @@ fun MovieDetailsScreen(navController: NavController, movieID: String?,detailsVie
             )
             CastList()
         }
+    }
 }
 
 data class TopBilledCastList(val img: Int, val name: String)
@@ -168,7 +194,7 @@ val listCast= listOf(
 fun CastList(){
     LazyRow{
         items(listCast){
-           ItemTopBilledCast(it)
+            ItemTopBilledCast(it)
         }
     }
 }
@@ -199,18 +225,20 @@ fun ItemTopBilledCast(topBilledCastList: TopBilledCastList){
         Column(modifier = Modifier.fillMaxHeight(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,) {
-           Image(painter = painterResource(id = topBilledCastList.img), contentDescription =null,
-               modifier = Modifier
-                   .size(dp_100)
-                   .padding(dp_10))
+            Image(painter = painterResource(id = topBilledCastList.img), contentDescription =null,
+                modifier = Modifier
+                    .size(dp_100)
+                    .padding(dp_10))
             Text(text = topBilledCastList.name,
                 fontSize = sp_14,
                 modifier = Modifier.padding(dp_5))
         }
     }
 }
+
 @Preview
 @Composable
-fun Prev(){
-    MovieDetailsScreen(rememberNavController(), "12345678")
+private fun DetailsScreenPrev() {
+    MovieDetailsScreen(navController = rememberNavController(), hiltViewModel() )
+
 }

@@ -9,5 +9,5 @@ object Constants {
 
     const val API_KEY="80eabe189b9e4e5ca80503483808a53b"
     const val IMAGE_ENDPOINT="https://image.tmdb.org/t/p/original/"
-    const val DETAILS_ENDPOINT="/movie"
+    const val DETAILS_ENDPOINT="1011985"
 }
