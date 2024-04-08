@@ -9,16 +9,16 @@ sealed class NavigationItem(val route: String) {
     data object WELCOME : NavigationItem(Screen.WELCOME.name)
 
     /** Represents the list screen. */
-    data object LISTSCREEN : NavigationItem(Screen.LISTSCREEN.name)
+    data object POPULARLISTSCREEN : NavigationItem(Screen.POPULARLISTSCREEN.name)
 
     /** Represents the now playing details screen. */
-    data object NOW_PLAYING_DETAILS : NavigationItem(Screen.NOW_PLAYING_DETAILS.name)
+    data object NOWPLAYINGLISTSCREEN : NavigationItem(Screen.NOWPLAYINGLISTSCREEN.name)
 
     /** Represents the upcoming list screen. */
-    data object UPCOMING_LIST: NavigationItem(Screen.UPCOMING_LIST.name)
+    data object UPCOMINGLISTSCREEN: NavigationItem(Screen.UPCOMINGLISTSCREEN.name)
 
     /** Represents the top-rated list screen. */
-    data object TOPRATED_LIST: NavigationItem(Screen.TOPRATED_LIST.name)
+    data object TOPRATEDLISTSCREEN: NavigationItem(Screen.TOPRATEDLISTSCREEN.name)
 
     /**
      * Represents the details screen for a specific movie.

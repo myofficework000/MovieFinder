@@ -2,9 +2,9 @@ package abhishek.pathak.moviefiner.navigation
 
 enum class Screen {
     WELCOME,
-    LISTSCREEN,
+    POPULARLISTSCREEN,
     DETAILS_SCREEN,
-    NOW_PLAYING_DETAILS,
-    UPCOMING_LIST,
-    TOPRATED_LIST
+    NOWPLAYINGLISTSCREEN,
+    UPCOMINGLISTSCREEN,
+    TOPRATEDLISTSCREEN
 }

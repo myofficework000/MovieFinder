@@ -1,6 +1,7 @@
 package abhishek.pathak.moviefiner.model.movie_detail
 
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.hilt.viewmodel.HiltViewModel
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_100
 import abhishek.pathak.moviefiner.ui.theme.dp_120
@@ -30,6 +31,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,11 +40,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MovieDetailsScreen(navController: NavController, movieID: String?) {
+fun MovieDetailsScreen(navController: NavController, movieID: String?,detailsViewModel: HiltViewModel= hiltViewModel()) {
+    val movieID="823464"
+    detailsViewModel.fetchMovieDetails("823464")
+    val movieImage =detailsViewModel.detailsLiveData.observeAsState()
+    val errorData =detailsViewModel.detailsErrorData.observeAsState()
+    val basicDetails=movieImage.value
 
     Column(
         modifier = Modifier
@@ -61,7 +69,7 @@ fun MovieDetailsScreen(navController: NavController, movieID: String?) {
                 onClick = { /* Handle button click */ },
                 modifier = Modifier.padding(top= dp_10, bottom = dp_10))
             Text(
-                text = stringResource(id = R.string.Title),
+                text = basicDetails!!.title,
                 fontSize = sp_20,
                 color = Color.Black,
                 modifier = Modifier
@@ -87,7 +95,7 @@ fun MovieDetailsScreen(navController: NavController, movieID: String?) {
                 )
             }
             Text(
-                text = stringResource(id = R.string.title_down),
+                text =basicDetails!!.original_language ,
                 fontSize = sp_20,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = dp_10
