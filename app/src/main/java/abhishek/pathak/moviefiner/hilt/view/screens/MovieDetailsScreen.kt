@@ -2,7 +2,7 @@ package abhishek.pathak.moviefiner.hilt.view.screens
 
 import abhishek.pathak.moviefiner.R
 import abhishek.pathak.moviefiner.hilt.model.Constants.IMAGE_ENDPOINT
-import abhishek.pathak.moviefiner.hilt.viewmodel.MovieListsViewModel
+import abhishek.pathak.moviefiner.hilt.viewmodel.DetailsViewModel
 import abhishek.pathak.moviefiner.ui.theme.dp_10
 import abhishek.pathak.moviefiner.ui.theme.dp_100
 import abhishek.pathak.moviefiner.ui.theme.dp_120
@@ -50,140 +50,156 @@ import com.bumptech.glide.integration.compose.placeholder
 
 @Composable
 @OptIn(ExperimentalGlideComposeApi::class)
-fun MovieDetailsScreen(navController: NavController,detailsViewModel: MovieListsViewModel = hiltViewModel()) {
-    detailsViewModel.fetchMovieDetails()
+fun MovieDetailsScreen(
+    navController: NavController,
+    detailsViewModel: DetailsViewModel = hiltViewModel(),
+    movieId: String
+) {
+    detailsViewModel.fetchMovieDetails(movieId)
     val movieImage = detailsViewModel.detailsLiveData.observeAsState()
     val errorData = detailsViewModel.detailsErrorData.observeAsState()
     val basicDetails = movieImage.value
-    val genres = basicDetails!!.genres
-    val stringBuilder = StringBuilder()
-    for (i in genres.indices) {
-        stringBuilder.append(genres[i].name)
+    basicDetails?.let {
+        val genres = basicDetails.genres
+        val stringBuilder = StringBuilder()
+        for (i in genres.indices) {
+            stringBuilder.append(genres[i].name)
 
-        // Add a comma if it's not the last genre
-        if (i < genres.size - 1) {
-            stringBuilder.append(",")
-        }
-        val concatenatedGenres = stringBuilder.toString()
+            // Add a comma if it's not the last genre
+            if (i < genres.size - 1) {
+                stringBuilder.append(",")
+            }
+            val concatenatedGenres = stringBuilder.toString()
 
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .background(Color.White),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .background(Color.White),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
 
-            ) {
-            Row(
-                modifier = Modifier.align(Alignment.Start)
-            ) {
-                ImageButton(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-                    contentDescription = stringResource(id = R.string.Button_description),
-                    onClick = {navController.popBackStack()},
-                    modifier = Modifier.padding(top = dp_10, bottom = dp_10)
+                ) {
+                Row(
+                    modifier = Modifier.align(Alignment.Start)
+                ) {
+                    ImageButton(
+                        painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                        contentDescription = stringResource(id = R.string.Button_description),
+                        onClick = { navController.popBackStack() },
+                        modifier = Modifier.padding(top = dp_10, bottom = dp_10)
+                    )
+                    Text(
+                        text = basicDetails.title,
+                        fontSize = sp_20,
+                        color = Color.Black,
+                        modifier = Modifier
+                            .padding(dp_10)
+                            .align(Alignment.CenterVertically)
+                    )
+                }
+
+                Box {
+                    basicDetails?.belongs_to_collection?.backdrop_path?.let {
+                        val url1 =
+                            "${IMAGE_ENDPOINT + it}"
+
+                        GlideImage(
+                            model = url1,
+                            contentDescription = null,
+                            loading = placeholder(R.drawable.ic_launcher_background),
+                            modifier = Modifier
+                                .wrapContentHeight()
+                                .fillMaxWidth()
+                                .padding(dp_20)
+                        )
+                    }
+
+                    basicDetails?.belongs_to_collection?.poster_path?.let {
+                        val url2 =
+                            "${IMAGE_ENDPOINT + basicDetails.belongs_to_collection.poster_path}"
+
+                        GlideImage(
+                            model = url2,
+                            contentDescription = null,
+                            loading = placeholder(R.drawable.ic_launcher_background),
+                            modifier = Modifier
+                                .size(dp_120)
+                                .padding(start = dp_10, top = dp_20, bottom = dp_10)
+                                .align(Alignment.CenterStart)
+                        )
+                    }
+                }
+                Text(
+                    text = basicDetails.original_language,
+                    fontSize = sp_20,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(
+                        top = dp_10, start = dp_10, end = dp_10
+                    )
                 )
                 Text(
-                    text = basicDetails.title,
+                    text = "R ${basicDetails.release_date}(${basicDetails.original_language}) ${basicDetails.runtime}",   //R 2022-12-14(EN) 3h 12m
+                    fontSize = sp_15
+                )
+
+                Text(
+                    text = concatenatedGenres,
+                    fontSize = sp_12,
+                    color = Color.Gray
+                )
+                Row(modifier = Modifier.padding(dp_30)) {
+                    Text(
+                        text = stringResource(id = R.string.user_Score),
+                        fontSize = sp_14,
+                        color = Color.Black
+                    )
+                    Text(
+                        text = "|",
+                        fontSize = sp_14,
+                        color = Color.Black
+                    )
+                    Text(
+                        text = stringResource(id = R.string.Play_trailer),
+                        fontSize = sp_14,
+                        color = Color.Black
+                    )
+                }
+                Text(
+                    text = stringResource(id = R.string.Overview),
                     fontSize = sp_20,
                     color = Color.Black,
                     modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = dp_10)
+                )
+                Text(
+                    text = basicDetails.overview,
+                    maxLines = 1,
+                    fontSize = sp_14,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .align(Alignment.Start)
                         .padding(dp_10)
-                        .align(Alignment.CenterVertically)
                 )
-            }
-            Box {
-                val url1= "${IMAGE_ENDPOINT+basicDetails.belongs_to_collection.backdrop_path}"
-                val url2= "${IMAGE_ENDPOINT+basicDetails.belongs_to_collection.poster_path}"
-
-
-                GlideImage(
-                    model = url1,
-                    contentDescription = null,
-                    loading = placeholder(R.drawable.ic_launcher_background),
+                Text(
+                    text = stringResource(id = R.string.Cast_bill),
+                    fontSize = sp_20,
+                    color = Color.Black,
                     modifier = Modifier
-                        .wrapContentHeight()
-                        .fillMaxWidth()
-                        .padding(dp_20)
+                        .align(Alignment.Start)
+                        .padding(dp_10)
                 )
-                GlideImage(
-                    model = url2,
-                    contentDescription = null,
-                    loading = placeholder(R.drawable.ic_launcher_background),
-                    modifier = Modifier
-                        .size(dp_120)
-                        .padding(start = dp_10, top = dp_20, bottom = dp_10)
-                        .align(Alignment.CenterStart)
-                )
+                CastList()
             }
-            Text(
-                text = basicDetails.original_language,
-                fontSize = sp_20,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(
-                    top = dp_10, start = dp_10, end = dp_10
-                )
-            )
-            Text(
-                text = "R ${basicDetails.release_date}(${basicDetails.original_language}) ${basicDetails.runtime}",   //R 2022-12-14(EN) 3h 12m
-                fontSize = sp_15
-            )
-
-            Text(
-                text = concatenatedGenres,
-                fontSize = sp_12,
-                color = Color.Gray
-            )
-            Row(modifier = Modifier.padding(dp_30)) {
-                Text(
-                    text = stringResource(id = R.string.user_Score),
-                    fontSize = sp_14,
-                    color = Color.Black
-                )
-                Text(
-                    text = "|",
-                    fontSize = sp_14,
-                    color = Color.Black
-                )
-                Text(
-                    text = stringResource(id = R.string.Play_trailer),
-                    fontSize = sp_14,
-                    color = Color.Black
-                )
-            }
-            Text(
-                text = stringResource(id = R.string.Overview),
-                fontSize = sp_20,
-                color = Color.Black,
-                modifier = Modifier
-                    .align(Alignment.Start)
-                    .padding(start = dp_10)
-            )
-            Text(
-                text = basicDetails.overview,
-                maxLines = 1,
-                fontSize = sp_14,
-                color = Color.Black,
-                modifier = Modifier
-                    .align(Alignment.Start)
-                    .padding(dp_10)
-            )
-            Text(
-                text = stringResource(id = R.string.Cast_bill),
-                fontSize = sp_20,
-                color = Color.Black,
-                modifier = Modifier
-                    .align(Alignment.Start)
-                    .padding(dp_10)
-            )
-            CastList()
         }
+    } ?: run {
+        Text(text = (errorData.value.toString()))
     }
 }
 
 data class TopBilledCastList(val img: Int, val name: String)
 
-val listCast= listOf(
+val listCast = listOf(
     TopBilledCastList(R.drawable.ic_launcher_background, "Sam Worthington"),
     TopBilledCastList(R.drawable.ic_launcher_background, "Zoe Saldana"),
     TopBilledCastList(R.drawable.ic_launcher_background, "Dallas Liu"),
@@ -191,13 +207,14 @@ val listCast= listOf(
 )
 
 @Composable
-fun CastList(){
-    LazyRow{
-        items(listCast){
+fun CastList() {
+    LazyRow {
+        items(listCast) {
             ItemTopBilledCast(it)
         }
     }
 }
+
 @Composable
 fun ImageButton(
     painter: Painter,
@@ -219,19 +236,26 @@ fun ImageButton(
         )
     }
 }
+
 @Composable
-fun ItemTopBilledCast(topBilledCastList: TopBilledCastList){
-    Row{
-        Column(modifier = Modifier.fillMaxHeight(),
+fun ItemTopBilledCast(topBilledCastList: TopBilledCastList) {
+    Row {
+        Column(
+            modifier = Modifier.fillMaxHeight(),
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,) {
-            Image(painter = painterResource(id = topBilledCastList.img), contentDescription =null,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Image(
+                painter = painterResource(id = topBilledCastList.img), contentDescription = null,
                 modifier = Modifier
                     .size(dp_100)
-                    .padding(dp_10))
-            Text(text = topBilledCastList.name,
+                    .padding(dp_10)
+            )
+            Text(
+                text = topBilledCastList.name,
                 fontSize = sp_14,
-                modifier = Modifier.padding(dp_5))
+                modifier = Modifier.padding(dp_5)
+            )
         }
     }
 }
@@ -239,6 +263,5 @@ fun ItemTopBilledCast(topBilledCastList: TopBilledCastList){
 @Preview
 @Composable
 private fun DetailsScreenPrev() {
-    MovieDetailsScreen(navController = rememberNavController(), hiltViewModel() )
-
+    MovieDetailsScreen(navController = rememberNavController(), hiltViewModel(), "123")
 }

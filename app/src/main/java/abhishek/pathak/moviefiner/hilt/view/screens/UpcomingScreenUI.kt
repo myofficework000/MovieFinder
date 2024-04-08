@@ -69,11 +69,13 @@ fun UpcomingScreenUI(upcomingViewModel: MovieListsViewModel = hiltViewModel(), n
             if (list != null) {
                 items(list.size) { item ->
                     Box(modifier = Modifier.fillMaxWidth()) {
+                        val data = list[item]
                         ItemView(
                             "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
-                            list[item].title,
-                            list[item].release_date,
-                            navController
+                            data.title,
+                            data.release_date,
+                            navController,
+                            movieId = data.id.toString()
                         )
                     }
                 }

@@ -55,11 +55,13 @@ fun TopRatedUIWelcome(
             if (list != null) {
                 items(list.size) { item ->
                     Box(modifier = Modifier.size(height = dp_60, width = dp_172)) {
+                        val data = list[item]
                         ItemView(
                             "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
-                            list[item].title.toString(),
-                            list[item].release_date.toString(),
-                            navController
+                            data.title,
+                            data.release_date,
+                            navController,
+                            movieId = data.id.toString()
                         )
                     }
                 }

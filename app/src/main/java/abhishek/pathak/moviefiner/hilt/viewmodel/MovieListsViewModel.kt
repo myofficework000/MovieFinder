@@ -2,11 +2,10 @@ package abhishek.pathak.moviefiner.hilt.viewmodel
 
 
 import abhishek.pathak.moviefiner.hilt.model.MovieRepository
-import abhishek.pathak.moviefiner.model.data.UpcomingResponse
-import abhishek.pathak.moviefiner.hilt.model.toprated.TopRatedResponse
 import abhishek.pathak.moviefiner.hilt.model.nowplaying.NowplayingMovieResponse
 import abhishek.pathak.moviefiner.hilt.model.popular.PopularResponse
-import abhishek.pathak.moviefiner.hilt.model.details.MovieDetailsResponse
+import abhishek.pathak.moviefiner.hilt.model.toprated.TopRatedResponse
+import abhishek.pathak.moviefiner.model.data.UpcomingResponse
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +17,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieListsViewModel @Inject constructor(private  val movieRepository : MovieRepository): ViewModel() {
+class MovieListsViewModel @Inject constructor(private val movieRepository: MovieRepository) :
+    ViewModel() {
 
     private val _popularLiveData = MutableLiveData<PopularResponse>()
     val popularLiveData: LiveData<PopularResponse> = _popularLiveData
@@ -28,20 +28,21 @@ class MovieListsViewModel @Inject constructor(private  val movieRepository : Mov
 
     private lateinit var popularDisposable: Disposable
 
-    fun fetchPopularMovieDetails(){
+    fun fetchPopularMovieDetails() {
         popularDisposable = movieRepository.getPopularMovie()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     _popularLiveData.value = it
-                    Log.e("url",it.toString())
-                },{
+                    Log.e("url", it.toString())
+                }, {
                     _popularErrorData.value = it.message
-                    Log.e("urlerror",it.message.toString())
+                    Log.e("urlerror", it.message.toString())
                 }
             )
     }
+
     private val _nowplayingLiveData = MutableLiveData<NowplayingMovieResponse>()
     val nowplayingLiveData: LiveData<NowplayingMovieResponse> = _nowplayingLiveData
 
@@ -50,17 +51,17 @@ class MovieListsViewModel @Inject constructor(private  val movieRepository : Mov
 
     private lateinit var nowplayingDisposable: Disposable
 
-    fun fetchNowPlayingMovieDetails(){
+    fun fetchNowPlayingMovieDetails() {
         nowplayingDisposable = movieRepository.getNowPlayingMovie()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     _nowplayingLiveData.value = it
-                    Log.e("url",it.toString())
-                },{
+                    Log.e("url", it.toString())
+                }, {
                     _nowplayingErrorData.value = it.message
-                    Log.e("urlerror",it.message.toString())
+                    Log.e("urlerror", it.message.toString())
                 }
             )
     }
@@ -72,20 +73,21 @@ class MovieListsViewModel @Inject constructor(private  val movieRepository : Mov
     val upcomingErrorData: LiveData<String> = _upcomingErrorData
 
     private lateinit var upcomingDisposable: Disposable
-    fun fetchUpcomingMovieDetails(){
+    fun fetchUpcomingMovieDetails() {
         upcomingDisposable = movieRepository.getUpcomingMovie()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     _upcomingLiveData.value = it
-                    Log.e("url",it.toString())
-                },{
+                    Log.e("url", it.toString())
+                }, {
                     _upcomingErrorData.value = it.message
-                    Log.e("urlerror",it.message.toString())
+                    Log.e("urlerror", it.message.toString())
                 }
             )
     }
+
     private val _topratedLiveData = MutableLiveData<TopRatedResponse>()
     val topratedLiveData: LiveData<TopRatedResponse> = _topratedLiveData
 
@@ -94,59 +96,34 @@ class MovieListsViewModel @Inject constructor(private  val movieRepository : Mov
 
     private lateinit var topratedDisposable: Disposable
 
-    fun fetchTopRatedMovieDetails(){
+    fun fetchTopRatedMovieDetails() {
         topratedDisposable = movieRepository.getTopRatedMovie()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     _topratedLiveData.value = it
-                    Log.e("url",it.toString())
-                },{
+                    Log.e("url", it.toString())
+                }, {
                     _topratedErrorData.value = it.message
-                    Log.e("urlerror",it.message.toString())
-                }
-            )
-    }
-    private val _detailsLiveData = MutableLiveData<MovieDetailsResponse>()
-    val detailsLiveData: LiveData<MovieDetailsResponse> = _detailsLiveData
-
-    private val _detailsErrorData = MutableLiveData<String>()
-    val detailsErrorData: LiveData<String> = _detailsErrorData
-    private lateinit var detailsDisposable: Disposable
-
-
-    fun fetchMovieDetails(){
-        detailsDisposable = movieRepository.getDetails()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _detailsLiveData.value = it
-                    Log.e("url",it.toString())
-                },{
-                    _detailsErrorData.value = it.message
-                    Log.e("urlerror",it.message.toString())
+                    Log.e("urlerror", it.message.toString())
                 }
             )
     }
 
     override fun onCleared() {
         super.onCleared()
-        if(this::popularDisposable.isInitialized){
+        if (this::popularDisposable.isInitialized) {
             popularDisposable.dispose()
         }
-        if(this::nowplayingDisposable.isInitialized){
+        if (this::nowplayingDisposable.isInitialized) {
             nowplayingDisposable.dispose()
         }
-        if(this::topratedDisposable.isInitialized){
+        if (this::topratedDisposable.isInitialized) {
             topratedDisposable.dispose()
         }
-        if(this::upcomingDisposable.isInitialized){
+        if (this::upcomingDisposable.isInitialized) {
             upcomingDisposable.dispose()
-        }
-        if(this::detailsDisposable.isInitialized){
-            detailsDisposable.dispose()
         }
     }
 }

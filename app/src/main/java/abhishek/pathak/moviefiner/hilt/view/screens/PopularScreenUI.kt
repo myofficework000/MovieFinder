@@ -41,7 +41,10 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 
 @Composable
-fun PopularScreenUI(popularViewModel: MovieListsViewModel = hiltViewModel(), navController: NavController) {
+fun PopularScreenUI(
+    popularViewModel: MovieListsViewModel = hiltViewModel(),
+    navController: NavController
+) {
     popularViewModel.fetchPopularMovieDetails()
     val movieImage = popularViewModel.popularLiveData.observeAsState()
     Column(
@@ -56,7 +59,7 @@ fun PopularScreenUI(popularViewModel: MovieListsViewModel = hiltViewModel(), nav
                 .background(color = White)
         ) {
             IconButton(
-                onClick = {  navController.navigate(NavigationItem.WELCOME.route)},
+                onClick = { navController.navigate(NavigationItem.WELCOME.route) },
                 Modifier.paint(painterResource(id = R.drawable.baseline_arrow_back_24))
             ) { }
 
@@ -79,12 +82,14 @@ fun PopularScreenUI(popularViewModel: MovieListsViewModel = hiltViewModel(), nav
             if (list != null) {
                 items(list.size) { item ->
                     Box(modifier = Modifier.fillMaxWidth()) {
+                        val data = list[item]
                         ItemView(
                             "${IMAGE_ENDPOINT + list[item].poster_path}.toString()",
-                            list[item].title,
-                            list[item].release_date,
-                            navController
-                      )
+                            data.title,
+                            data.release_date,
+                            navController,
+                            movieId = data.id.toString()
+                        )
                     }
                 }
             } else {
@@ -96,12 +101,20 @@ fun PopularScreenUI(popularViewModel: MovieListsViewModel = hiltViewModel(), nav
 
 @Composable
 @OptIn(ExperimentalGlideComposeApi::class)
-fun ItemView(image: String, title: String, date: String,navController: NavController) {
+fun ItemView(
+    image: String,
+    title: String,
+    date: String,
+    navController: NavController,
+    movieId: String
+) {
 
     Card(
         modifier = Modifier.padding(dp_10),
         elevation = CardDefaults.cardElevation(dp_4),
-        onClick = {navController.navigate(NavigationItem.DETAILS_SCREEN.route)}
+        onClick = {
+            navController.navigate("${NavigationItem.DETAILS_SCREEN.route}/$movieId")
+        }
     ) {
         Box(
             Modifier

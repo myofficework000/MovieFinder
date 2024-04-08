@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 
 @Composable
 fun AppNavHost(
@@ -27,21 +29,27 @@ fun AppNavHost(
         composable(NavigationItem.WELCOME.route) {
             WelcomeScreen(navHostController)
         }
-       composable(NavigationItem.POPULARLISTSCREEN.route) {
+        composable(NavigationItem.POPULARLISTSCREEN.route) {
             PopularScreenUI(hiltViewModel(), navHostController)
         }
 
         composable(NavigationItem.NOWPLAYINGLISTSCREEN.route) {
-            NowPlayingScreenUI(hiltViewModel(),navHostController)
+            NowPlayingScreenUI(hiltViewModel(), navHostController)
         }
         composable(NavigationItem.UPCOMINGLISTSCREEN.route) {
-            UpcomingScreenUI(hiltViewModel(),navHostController)
+            UpcomingScreenUI(hiltViewModel(), navHostController)
         }
-        composable(NavigationItem.TOPRATEDLISTSCREEN.route) {
-            TopRatedScreenUI(hiltViewModel(),navHostController)
+        composable(
+            NavigationItem.TOPRATEDLISTSCREEN.route
+        ) {
+            TopRatedScreenUI(hiltViewModel(), navHostController)
         }
-        composable(NavigationItem.DETAILS_SCREEN.route) {
-            MovieDetailsScreen(navHostController,hiltViewModel())
+        composable(
+            "${NavigationItem.DETAILS_SCREEN.route}/{movieId}"
+        )
+        { backStackEntry ->
+            val movieId = backStackEntry.arguments?.getString("movieId") ?: ""
+            MovieDetailsScreen(navHostController, hiltViewModel(), movieId)
         }
     }
 }
