@@ -2,6 +2,7 @@ package abhishek.pathak.moviefiner.hilt.view
 
 
 import abhishek.pathak.moviefiner.R
+import abhishek.pathak.moviefiner.hilt.view.screens.FavScreen
 import abhishek.pathak.moviefiner.hilt.view.screens.welcomescreens.NowPlayingUIWelcome
 import abhishek.pathak.moviefiner.hilt.view.screens.welcomescreens.PopularUIWelcome
 import abhishek.pathak.moviefiner.hilt.view.screens.welcomescreens.TopRatedUIWelcome
@@ -39,22 +40,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
+@Composable
+fun MakeScafoldUI() {
+    val navController=rememberNavController()
+    Scaffold(topBar={}, bottomBar ={MyBottomBarUI(navController=navController)}) {
+        NavHost(navController = navController, startDestination = BottomRoutes.Screen1.route,modifier=Modifier.padding(it)) {
+            composable(BottomRoutes.Screen1.route){
+                WelcomeScreen(navController = navController)
+            }
+            composable(BottomRoutes.Screen2.route){
+                FavScreen(rememberNavController(), hiltViewModel())
+            }
+            composable(BottomRoutes.Screen3.route){
+
+            }
+        }
+    }
+}
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
-    Scaffold(
-        bottomBar = { BottomNavigationBar() }
-    ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(Color.White)
-                .padding(padding)
         ) {
-            GreetingSection()
             SearchBar()
             Spacer(modifier = Modifier.height(16.dp))
             Box(
@@ -90,16 +105,8 @@ fun WelcomeScreen(navController: NavController) {
             }
         }
     }
-}
 
-@Composable
-fun GreetingSection() {
-    Text(
-        text = "Welcome",
-        modifier = Modifier.padding(16.dp)
-    )
 
-}
 
 @Composable
 fun SearchBar() {
@@ -166,37 +173,10 @@ fun MovieCard(movie: Movie) {
     }
 }
 
-@Composable
-fun BottomNavigationBar() {
-    NavigationBar(
-        modifier = Modifier.fillMaxWidth(),
-        contentColor = Color.Black
-    ) {
-        NavigationBarItem(
-            icon = { Icon(painterResource(id = R.drawable.baseline_add_home_24), contentDescription = "Home") },
-            label = { Text("Home") },
-            selected = true,
-            onClick = { /* handle Home click */ }
-        )
-        NavigationBarItem(
-            icon = { Icon(painterResource(id = R.drawable.baseline_favorite_24), contentDescription = "Favorites") },
-            label = { Text("Favorites") },
-            selected = false,
-            onClick = { /* handle Favorites click */ }
-        )
-        NavigationBarItem(
-            icon = { Icon(painterResource(id = R.drawable.baseline_emoji_people_24), contentDescription = "Profile") },
-            label = { Text("Profile") },
-            selected = false,
-            onClick = { /* handle Profile click */ }
-        )
-    }
-}
-
 data class Movie(val imageResourceId: Int, val title: String)
 
 @Preview(showBackground = true)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen(rememberNavController())
+    MakeScafoldUI()
 }

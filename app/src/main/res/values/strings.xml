@@ -27,6 +27,17 @@
     <string name="view_all">View All</string>
     <string name="cd_view_all">View all upcoming movies</string>
 
+    //Scaffold
+
+    <string name="favourites">FAVOURITES</string>
+    <string name="welcome">Welcome</string>
+    <string name="Profile">Profile</string>
+
+
+
+
+
+
 
 
 
