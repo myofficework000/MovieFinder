@@ -6,6 +6,7 @@ import abhishek.pathak.moviefiner.hilt.view.screens.welcomescreens.NowPlayingUIW
 import abhishek.pathak.moviefiner.hilt.view.screens.welcomescreens.PopularUIWelcome
 import abhishek.pathak.moviefiner.hilt.view.screens.welcomescreens.TopRatedUIWelcome
 import abhishek.pathak.moviefiner.hilt.view.screens.welcomescreens.UpcomingUIWelcome
+import abhishek.pathak.moviefiner.navigation.NavigationItem
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -45,7 +46,7 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun WelcomeScreen(navController: NavController) {
     Scaffold(
-        bottomBar = { BottomNavigationBar() }
+        bottomBar = { BottomNavigationBar(navController) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -167,7 +168,7 @@ fun MovieCard(movie: Movie) {
 }
 
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
         contentColor = Color.Black
@@ -176,13 +177,13 @@ fun BottomNavigationBar() {
             icon = { Icon(painterResource(id = R.drawable.baseline_add_home_24), contentDescription = "Home") },
             label = { Text("Home") },
             selected = true,
-            onClick = { /* handle Home click */ }
+            onClick = {navController.navigate(NavigationItem.WELCOME.route) }
         )
         NavigationBarItem(
             icon = { Icon(painterResource(id = R.drawable.baseline_favorite_24), contentDescription = "Favorites") },
             label = { Text("Favorites") },
             selected = false,
-            onClick = { /* handle Favorites click */ }
+            onClick = { navController.navigate(NavigationItem.FAVORITE_SCREEN.route) }
         )
         NavigationBarItem(
             icon = { Icon(painterResource(id = R.drawable.baseline_emoji_people_24), contentDescription = "Profile") },

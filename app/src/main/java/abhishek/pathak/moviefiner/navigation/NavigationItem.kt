@@ -20,4 +20,6 @@ sealed class NavigationItem(val route: String) {
     /** Represents the top-rated list screen. */
     data object TOPRATEDLISTSCREEN: NavigationItem(Screen.TOPRATEDLISTSCREEN.name)
     data object DETAILS_SCREEN: NavigationItem(Screen.DETAILS_SCREEN.name)
+
+    data object FAVORITE_SCREEN: NavigationItem(Screen.FAVORITES_SCREEN.name)
 }
